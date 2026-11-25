@@ -1,0 +1,1 @@
+import{j as i,N as a}from"./index-CFa3E8iJ.js";function s(){return i.jsxs("nav",{className:"admin-nav","aria-label":"Administración",children:[i.jsx(a,{to:"/administracion",end:!0,children:"Gestionar butacas"}),i.jsx(a,{to:"/administracion/reportes",children:"Reportes y decisiones"})]})}export{s as A};

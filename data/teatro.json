@@ -1451,33 +1451,33 @@
     {
       "id_imagen": 1,
       "id_produccion": 4,
-      "url_original": "assets/images/archivo-bosque.svg",
-      "url_pequena": "assets/images/archivo-bosque-movil.svg",
-      "texto_alternativo": "Ilustración de un bosque nocturno iluminado sobre un escenario",
+      "url_original": "assets/images/verano-portada.jpg",
+      "url_pequena": "assets/images/verano-portada.jpg",
+      "texto_alternativo": "Sueño de una noche de verano: bosque bajo la luna",
       "orden": 1
     },
     {
       "id_imagen": 2,
       "id_produccion": 4,
-      "url_original": "assets/images/archivo-ensayo.svg",
-      "url_pequena": "assets/images/archivo-ensayo-movil.svg",
-      "texto_alternativo": "Ilustración de una sala de ensayo con sillas bajo focos de luz",
+      "url_original": "assets/images/verano-galeria.jpg",
+      "url_pequena": "assets/images/verano-galeria.jpg",
+      "texto_alternativo": "Sueño de una noche de verano: las hadas del bosque",
       "orden": 2
     },
     {
       "id_imagen": 3,
       "id_produccion": 5,
-      "url_original": "assets/images/archivo-luna.svg",
-      "url_pequena": "assets/images/archivo-luna-movil.svg",
-      "texto_alternativo": "Ilustración de una luna dorada y telas rojas en un escenario",
+      "url_original": "assets/images/bodas-portada.png",
+      "url_pequena": "assets/images/bodas-portada.png",
+      "texto_alternativo": "Bodas de sangre: los protagonistas bajo la luna",
       "orden": 1
     },
     {
       "id_imagen": 4,
       "id_produccion": 5,
-      "url_original": "assets/images/archivo-ensayo.svg",
-      "url_pequena": "assets/images/archivo-ensayo-movil.svg",
-      "texto_alternativo": "Ilustración de una sala de ensayo con sillas bajo focos de luz",
+      "url_original": "assets/images/bodas-galeria.png",
+      "url_pequena": "assets/images/bodas-galeria.png",
+      "texto_alternativo": "Bodas de sangre: huida al atardecer",
       "orden": 2
     }
   ],
@@ -1510,8 +1510,8 @@
       "genero": "Drama",
       "duracion_minutos": 90,
       "sinopsis": "Tras la muerte de su segundo marido, Bernarda impone un largo luto a sus cinco hijas. Dentro de la casa, el silencio, el deseo de libertad y las normas familiares entran en conflicto.",
-      "imagen": "bernarda.svg",
-      "video_avance_url": "assets/video/avance-demo.mp4"
+      "imagen": "bernarda-alba.jpg",
+      "video_avance_url": "https://www.youtube.com/watch?v=GM0oy-YTXwc"
     },
     {
       "id_obra": 2,
@@ -1519,8 +1519,8 @@
       "genero": "Comedia",
       "duracion_minutos": 85,
       "sinopsis": "Harpagón quiere controlar su fortuna y el futuro de sus hijos. Entre secretos, enredos y un dinero que desaparece, su obsesión por ahorrar lo lleva a perder el control de todo.",
-      "imagen": "avaro.svg",
-      "video_avance_url": "assets/video/avance-demo.mp4"
+      "imagen": "el-avaro.jpg",
+      "video_avance_url": "https://www.youtube.com/watch?v=ujwCJqz2pAA"
     },
     {
       "id_obra": 3,
@@ -1528,8 +1528,8 @@
       "genero": "Clásico",
       "duracion_minutos": 100,
       "sinopsis": "Segismundo ha vivido encerrado sin conocer su origen. Cuando descubre que es príncipe, debe decidir si está condenado por su destino o si puede elegir quién quiere ser.",
-      "imagen": "sueno.svg",
-      "video_avance_url": "assets/video/avance-demo.mp4"
+      "imagen": "la-vida-es-sueno.jpg",
+      "video_avance_url": "https://www.redescena.net/espectaculo/39330/la-vida-es-sueno/"
     },
     {
       "id_obra": 4,
@@ -1537,7 +1537,7 @@
       "genero": "Comedia",
       "duracion_minutos": 95,
       "sinopsis": "Un bosque reúne a amantes, artesanos y seres mágicos en una noche de equívocos.",
-      "imagen": "archivo-bosque.svg",
+      "imagen": "verano-portada.jpg",
       "video_avance_url": null
     },
     {
@@ -1546,7 +1546,7 @@
       "genero": "Drama",
       "duracion_minutos": 90,
       "sinopsis": "Un encuentro reabre una pasión que enfrenta los deseos personales y los compromisos familiares.",
-      "imagen": "archivo-luna.svg",
+      "imagen": "bodas-portada.png",
       "video_avance_url": null
     }
   ],
@@ -1587,192 +1587,12 @@
       "estado": "ARCHIVO"
     }
   ],
-  "resenas": [
-    {
-      "id_resena": 1,
-      "id_produccion": 4,
-      "nombre_autor": "Espectador de ejemplo",
-      "contenido": "Por un momento, el escenario se convirtió en un lugar donde todo era posible."
-    },
-    {
-      "id_resena": 2,
-      "id_produccion": 5,
-      "nombre_autor": "Espectadora de ejemplo",
-      "contenido": "Hay silencios que dicen tanto como una escena entera."
-    }
-  ],
-  "reservaButacaEjemplo": [
-    {
-      "id_reserva": "ejemplo-1",
-      "id_funcion": 1,
-      "id_butaca": 2,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-1",
-      "id_funcion": 1,
-      "id_butaca": 9,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-1",
-      "id_funcion": 1,
-      "id_butaca": 18,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-1",
-      "id_funcion": 1,
-      "id_butaca": 19,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-1",
-      "id_funcion": 1,
-      "id_butaca": 28,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-1",
-      "id_funcion": 1,
-      "id_butaca": 35,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-2",
-      "id_funcion": 2,
-      "id_butaca": 3,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-2",
-      "id_funcion": 2,
-      "id_butaca": 10,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-2",
-      "id_funcion": 2,
-      "id_butaca": 19,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-2",
-      "id_funcion": 2,
-      "id_butaca": 20,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-2",
-      "id_funcion": 2,
-      "id_butaca": 29,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-2",
-      "id_funcion": 2,
-      "id_butaca": 36,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-3",
-      "id_funcion": 3,
-      "id_butaca": 4,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-3",
-      "id_funcion": 3,
-      "id_butaca": 11,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-3",
-      "id_funcion": 3,
-      "id_butaca": 20,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-3",
-      "id_funcion": 3,
-      "id_butaca": 21,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-3",
-      "id_funcion": 3,
-      "id_butaca": 30,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-3",
-      "id_funcion": 3,
-      "id_butaca": 37,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-4",
-      "id_funcion": 4,
-      "id_butaca": 5,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-4",
-      "id_funcion": 4,
-      "id_butaca": 12,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-4",
-      "id_funcion": 4,
-      "id_butaca": 21,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-4",
-      "id_funcion": 4,
-      "id_butaca": 22,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-4",
-      "id_funcion": 4,
-      "id_butaca": 31,
-      "vigente": true
-    },
-    {
-      "id_reserva": "ejemplo-4",
-      "id_funcion": 4,
-      "id_butaca": 38,
-      "vigente": true
-    }
-  ],
-  "reservasEjemplo": [
-    {
-      "id_reserva": "ejemplo-1",
-      "id_funcion": 1,
-      "estado": "CONFIRMADA"
-    },
-    {
-      "id_reserva": "ejemplo-2",
-      "id_funcion": 2,
-      "estado": "CONFIRMADA"
-    },
-    {
-      "id_reserva": "ejemplo-3",
-      "id_funcion": 3,
-      "estado": "CONFIRMADA"
-    },
-    {
-      "id_reserva": "ejemplo-4",
-      "id_funcion": 4,
-      "estado": "CONFIRMADA"
-    }
-  ],
+  "resenas": [],
+  "reservaButacaEjemplo": [],
   "salas": [
     {
       "id_sala": 1,
-      "nombre": "Sala principal · ejemplo",
+      "nombre": "Sala principal",
       "descripcion": "Seis filas y ocho butacas por fila",
       "activa": true
     }
