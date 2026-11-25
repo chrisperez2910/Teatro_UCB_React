@@ -82,26 +82,7 @@
   font-size: 1.5rem;
   color: var(--color-gold);
 }
-.demo-strip {
-  padding: 15px 20px;
-  border-block: 1px solid var(--color-border);
-  display: flex;
-  gap: 8px 12px;
-  align-items: baseline;
-  flex-wrap: wrap;
-  font-size: 0.75rem;
-  background: #191714;
-}
-.demo-strip p {
-  color: var(--color-muted);
-}
-.demo-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--color-gold);
-  border-radius: 50%;
-  align-self: center;
-}
+
 .section {
   padding-block: 70px;
 }
@@ -197,9 +178,6 @@
   .workshop-layout {
     grid-template-columns: 0.9fr 1.1fr;
   }
-  .demo-strip {
-    padding-inline: 32px;
-  }
 }
 @media (min-width: 1025px) {
   .site-header {
@@ -251,9 +229,7 @@
     z-index: 2;
     padding: 0;
   }
-  .demo-strip {
-    justify-content: center;
-  }
+
   .section {
     padding-block: 96px;
   }

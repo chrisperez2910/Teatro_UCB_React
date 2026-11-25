@@ -50,7 +50,15 @@ export default function WorkshopsSection() {
                 <div className="workshop-bottom">
                   <span>{available} cupos disponibles</span>
                   <button
-                    disabled={available <= 0 || t.estado !== "ABIERTO"}
+                    disabled={
+                      !useDatabase ||
+                      available <= 0 ||
+                      t.estado !== "ABIERTO" ||
+                      t.fecha_limite_inscripcion <
+                        new Intl.DateTimeFormat("sv-SE", {
+                          timeZone: "America/La_Paz",
+                        }).format(new Date())
+                    }
                     onClick={() =>
                       useDatabase && !account
                         ? navigate("/cuenta", {
@@ -59,7 +67,14 @@ export default function WorkshopsSection() {
                         : setSelected(t)
                     }
                   >
-                    Quiero participar ↗
+                    {!useDatabase
+                      ? "Inscripción no disponible"
+                      : t.fecha_limite_inscripcion <
+                          new Intl.DateTimeFormat("sv-SE", {
+                            timeZone: "America/La_Paz",
+                          }).format(new Date())
+                        ? "Inscripción cerrada"
+                        : "Quiero participar"}
                   </button>
                 </div>
               </article>
@@ -78,7 +93,7 @@ export default function WorkshopsSection() {
           <h2 id="workshop-dialog-title">{selected.titulo}</h2>
           <p className="dialog-intro">{selected.convocatoria_texto}</p>
           <p className="workshop-dates">
-            Fechas de ejemplo: {formatDate(selected.fecha_inicio)} al{" "}
+            Fechas: {formatDate(selected.fecha_inicio)} al{" "}
             {formatDate(selected.fecha_fin)}.<br />
             Inscripción hasta el {formatDate(selected.fecha_limite_inscripcion)}
             .
@@ -91,8 +106,8 @@ export default function WorkshopsSection() {
             }
             buttonText="Guardar inscripción"
             successButtonText="Inscripción guardada"
-            successMessage="Tu inscripción de prueba quedó guardada. ¡Nos vemos en el taller!"
-            note="En modo base de datos la inscripción se guarda en PostgreSQL. No se envían correos."
+            successMessage="Tu inscripción quedó guardada. ¡Nos vemos en el taller!"
+            note="Revisa tus datos antes de confirmar la inscripción."
             onConfirm={(values) => enroll(selected.id_taller, values)}
           />
         </Dialog>

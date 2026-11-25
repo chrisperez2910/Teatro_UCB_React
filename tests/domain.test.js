@@ -30,7 +30,16 @@ describe("Reservas y selección", () => {
   });
   it("impide ocupar una butaca reservada", () => {
     expect(() =>
-      buildReservation(catalog, emptyState(), 1, [2], contact),
+      buildReservation(
+        catalog,
+        {
+          ...emptyState(),
+          reservas: [buildReservation(catalog, emptyState(), 1, [2], contact)],
+        },
+        1,
+        [2],
+        contact,
+      ),
     ).toThrow(/disponible/);
   });
   it("separa la ocupación por función", () => {

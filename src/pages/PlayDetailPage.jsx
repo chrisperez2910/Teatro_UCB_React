@@ -29,7 +29,28 @@ export default function PlayDetailPage() {
     );
   const performances = performancesFor(catalog, work);
   const candidate = references[work.id_obra];
-  const reference = candidate?.expected === work.titulo ? candidate : null;
+  let reference = null;
+  if (work.video_avance_url?.startsWith("https://")) {
+    try {
+      const url = new URL(work.video_avance_url);
+      const videoId = ["www.youtube.com", "youtube.com"].includes(url.hostname)
+        ? url.searchParams.get("v")
+        : url.hostname === "youtu.be"
+          ? url.pathname.slice(1)
+          : null;
+      reference = {
+        ...(candidate?.expected === work.titulo
+          ? candidate
+          : { title: "Video de referencia de la obra" }),
+        url: url.href,
+        embed: /^[a-zA-Z0-9_-]{11}$/.test(videoId || "")
+          ? `https://www.youtube-nocookie.com/embed/${videoId}`
+          : null,
+      };
+    } catch {
+      /* Si el enlace no es válido, la ficha sigue disponible. */
+    }
+  }
   return (
     <article className="container section detail-page">
       <Link className="text-button detail-back" to="/#cartelera">
@@ -39,7 +60,7 @@ export default function PlayDetailPage() {
         <img
           className="detail-poster"
           src={assetUrl(`assets/images/${work.imagen}`)}
-          alt={`Afiche ilustrado de ${work.titulo}`}
+          alt={`Imagen de ${work.titulo}`}
           width="600"
           height="750"
         />
@@ -48,7 +69,7 @@ export default function PlayDetailPage() {
           <h1 className="page-title">{work.titulo}</h1>
           <p className="play-detail-meta">
             {getAuthors(catalog, work.id_obra)} · {work.genero} ·{" "}
-            {work.duracion_minutos} minutos aprox. (ejemplo)
+            {work.duracion_minutos} minutos aprox.
           </p>
           <p className="detail-description">{work.sinopsis}</p>
           <h2 className="subheading">Elige tu función</h2>
@@ -117,7 +138,7 @@ export default function PlayDetailPage() {
               >
                 {reference.embed
                   ? "Abrir el video en YouTube"
-                  : "Ver el tráiler en la página de Redescena"}{" "}
+                  : "Ver el avance en su página de origen"}{" "}
                 ↗
               </a>
             </section>

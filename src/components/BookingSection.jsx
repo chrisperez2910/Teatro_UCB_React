@@ -4,6 +4,7 @@ import { useTheater } from "../TheaterContext.jsx";
 import { useSeatSelection } from "../hooks/useSeatSelection.js";
 import {
   functionDate,
+  isUpcoming,
   getAuthors,
   occupiedSeats,
   seatLabel,
@@ -23,7 +24,19 @@ export default function BookingSection({
     () => occupiedSeats(catalog, state, performance.id_funcion),
     [catalog, state, performance.id_funcion],
   );
-  const selection = useSeatSelection(occupied, initialSeats);
+  const unavailable = useMemo(
+    () =>
+      new Set([
+        ...occupied,
+        ...catalog.funcionButaca
+          .filter(
+            (b) => b.id_funcion === performance.id_funcion && !b.habilitada,
+          )
+          .map((b) => b.id_butaca),
+      ]),
+    [occupied, catalog.funcionButaca, performance.id_funcion],
+  );
+  const selection = useSeatSelection(unavailable, initialSeats);
   const work = workForPerformance(catalog, performance),
     sala = catalog.salas.find((s) => s.id_sala === performance.id_sala);
   const seats = catalog.butacas
@@ -67,13 +80,11 @@ export default function BookingSection({
               value={performance.id_funcion}
               onChange={(e) => onFunctionChange(Number(e.target.value))}
             >
-              {catalog.funciones
-                .filter((f) => f.estado === "PROGRAMADA")
-                .map((f) => (
-                  <option key={f.id_funcion} value={f.id_funcion}>
-                    {workForPerformance(catalog, f).titulo} · {functionDate(f)}
-                  </option>
-                ))}
+              {catalog.funciones.filter(isUpcoming).map((f) => (
+                <option key={f.id_funcion} value={f.id_funcion}>
+                  {workForPerformance(catalog, f).titulo} · {functionDate(f)}
+                </option>
+              ))}
             </select>
             <div className="stage">ESCENARIO</div>
             <div
@@ -120,11 +131,12 @@ export default function BookingSection({
                 Tu selección
               </li>
               <li>
-                <i className="legend-seat occupied">×</i>Ocupada
+                <i className="legend-seat occupied">×</i>No disponible
               </li>
             </ul>
             <p className="seat-help">
-              Vista desde el público hacia el escenario.
+              Vista desde el público hacia el escenario.{" "}
+              {useDatabase && "Disponibilidad actualizada cada 10 segundos."}
             </p>
           </div>
           <aside
@@ -160,7 +172,7 @@ export default function BookingSection({
             </p>
             <button
               className="button gold full"
-              disabled={!selection.seats.length}
+              disabled={!useDatabase || !selection.seats.length}
               onClick={() =>
                 useDatabase && !account
                   ? navigate("/cuenta", {
@@ -175,12 +187,14 @@ export default function BookingSection({
                   : setFormOpen(true)
               }
             >
-              Continuar reserva <span aria-hidden="true">↗</span>
+              Continuar reserva
             </button>
             <p className="fine-print">
-              {useDatabase && !account
-                ? "Inicia sesión para guardar tu reserva."
-                : "Reserva de prueba · Sin pagos ni envío de correos."}
+              {!useDatabase
+                ? "Las reservas en línea no están disponibles en este momento."
+                : !account
+                  ? "Inicia sesión para guardar tu reserva."
+                  : "Tu reserva quedará guardada en tu cuenta."}
             </p>
           </aside>
         </div>
@@ -209,7 +223,7 @@ export default function BookingSection({
             buttonText="Guardar reserva"
             successButtonText="Reserva guardada"
             successMessage="Abriendo mis reservas…"
-            note="Reserva de prueba. En modo base de datos se guarda en PostgreSQL; no se envía ningún correo."
+            note="Comprueba la función y tus datos antes de confirmar."
             onConfirm={async (values) => {
               const r = await reserve(
                 performance.id_funcion,

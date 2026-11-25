@@ -1,0 +1,230 @@
+/* Telones, luces cálidas y fondos de sala. El texto conserva una superficie oscura. */
+.theater-scene {
+  position: relative;
+  isolation: isolate;
+  border-bottom: 1px solid #d4af3724;
+  background: #12100f;
+}
+.theater-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    linear-gradient(110deg, #100c0de8, #1d1010ce), var(--scene-image);
+  background-size: cover;
+  background-position: center;
+}
+.theater-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 12% 0%, #c39b3922, transparent 65%);
+}
+.scene-featured {
+  padding-top: 1px;
+  background: #1d1511;
+}
+.scene-featured::before {
+  background-image:
+    linear-gradient(100deg, #17100ee8, #17110dcc), var(--scene-image);
+  background-position: 50% 75%;
+}
+.scene-catalog::before {
+  background-image:
+    linear-gradient(125deg, #160b10e8, #100d0de0), var(--scene-image);
+  background-position: right top;
+}
+.scene-catalog::after {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 120px,
+      #d4af3708 120px 121px
+    ),
+    radial-gradient(ellipse at right top, #80002044, transparent 65%);
+}
+.scene-booking::before {
+  background-image: linear-gradient(#100d0ddd, #100d0ddc), var(--scene-image);
+  background-position: center bottom;
+}
+.scene-booking .booking-section {
+  background: transparent;
+  border: 0;
+}
+.scene-archive::before {
+  background-image:
+    linear-gradient(100deg, #151009ed, #181009cf), var(--scene-image);
+  background-position: left center;
+}
+.scene-archive::after {
+  background: radial-gradient(ellipse at 80% 30%, #a4832322, transparent 70%);
+}
+.scene-workshops::before {
+  background-image:
+    linear-gradient(115deg, #390915e6, #1d070fdb), var(--scene-image);
+  background-position: right 40%;
+}
+.scene-workshops .workshop-section {
+  background: transparent;
+  border: 0;
+}
+.scene-faq::before {
+  background-image:
+    linear-gradient(100deg, #0d0c0ce8, #160c0fd4), var(--scene-image);
+  background-position: center 85%;
+}
+.scene-faq .faq-list {
+  padding: 0 1.25rem;
+  background: #13100dd9;
+  border: 1px solid #d4af372a;
+}
+.featured {
+  margin-block: 0;
+  padding-block: 4rem;
+}
+.featured-card {
+  box-shadow: 0 24px 80px #0005;
+  background: #14110fe8;
+}
+.featured-poster {
+  background: radial-gradient(ellipse, #3a2920, #100e0c);
+  padding: 1.25rem;
+}
+.featured-poster img {
+  object-fit: contain;
+  height: 100%;
+  max-height: 380px;
+  width: 100%;
+}
+.play-poster {
+  background: #0c0b0a;
+  border: 1px solid #ae8d4a55;
+  border-radius: 3px;
+}
+.play-poster img {
+  height: auto;
+  object-fit: contain;
+}
+.detail-poster {
+  object-fit: contain;
+  background: linear-gradient(120deg, #2d1c19, #0a0909);
+  padding: 1rem;
+  border: 1px solid #bd975b55;
+}
+.play-card {
+  background: #15120fdc;
+  border: 1px solid #e3ba642b;
+  padding: 1rem;
+  box-shadow: 0 18px 38px #0003;
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
+}
+.play-card:hover {
+  transform: translateY(-5px);
+  border-color: #d4af3788;
+}
+.play-card details {
+  color: var(--color-muted);
+}
+.play-card details summary {
+  color: var(--color-text);
+}
+.archive-card {
+  padding: 1.2rem;
+  border: 1px solid #aa874333;
+  background: #15110fdd;
+}
+.archive-card:nth-child(2) {
+  padding-top: 1.2rem;
+}
+.archive-image img {
+  object-fit: cover;
+}
+.workshop-card {
+  padding-inline: 1.25rem;
+  background: #240d17b5;
+  border-color: #d4af3733;
+}
+.reservation-summary {
+  background: linear-gradient(145deg, #341d18f5, #191411f5);
+}
+.seat-panel {
+  background: #131110ed;
+  border: 1px solid #c7a05844;
+}
+.account-panel {
+  background: #18120ff5;
+}
+.admin-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 1rem;
+}
+.admin-nav a {
+  padding: 0.65rem 1rem;
+  color: var(--color-muted);
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.admin-nav a.active {
+  background: #d4af3716;
+  color: var(--color-gold-light);
+  border-color: #d4af3755;
+}
+.site-header nav {
+  gap: 1.3rem;
+}
+@media (min-width: 1025px) {
+  .scene-archive .archive-card:nth-child(2) {
+    margin-top: 4rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .play-card:hover {
+    transform: none;
+  }
+}
+.schedule-form {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  background: linear-gradient(120deg, #2b171e, #1a1713);
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.schedule-form > div {
+  flex: 1 1 24rem;
+}
+.schedule-form h2 {
+  font-size: 1.6rem;
+}
+.schedule-form p {
+  color: var(--color-muted);
+  font-size: 0.9rem;
+  margin-top: 0.6rem;
+}
+.schedule-form > p {
+  flex-basis: 100%;
+}
+.schedule-form label {
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+.schedule-form input {
+  background: #12100f;
+  color: var(--color-text);
+  border: 1px solid #75633f;
+  padding: 0.65rem;
+  color-scheme: dark;
+}

@@ -40,11 +40,14 @@ export const workForPerformance = (c, f) =>
     c,
     c.producciones.find((p) => p.id_produccion === f.id_produccion).id_obra,
   );
+export const isUpcoming = (f) =>
+  f.estado === "PROGRAMADA" &&
+  new Date(f.fecha_hora_inicio).getTime() > Date.now();
 export const performancesFor = (c, work) =>
   c.funciones
     .filter(
       (f) =>
-        f.estado === "PROGRAMADA" &&
+        isUpcoming(f) &&
         c.producciones.some(
           (p) =>
             p.id_produccion === f.id_produccion && p.id_obra === work.id_obra,
@@ -130,13 +133,9 @@ export function buildEnrollment(c, state, id, values) {
     (i) => i.id_taller === id && i.estado !== "CANCELADA",
   );
   if (enrolled.some((i) => i.correo_participante.toLowerCase() === email))
-    throw new Error(
-      "Este correo ya está inscrito en este taller dentro de la demostración.",
-    );
+    throw new Error("Este correo ya está inscrito en este taller.");
   if (enrolled.length >= t.cupo_maximo)
-    throw new Error(
-      "Se completaron los cupos de ejemplo. Puedes elegir otro taller.",
-    );
+    throw new Error("Se completaron los cupos. Puedes elegir otro taller.");
   return {
     id_inscripcion: createId(),
     id_taller: id,
@@ -233,5 +232,5 @@ export function validateStoredState(data, c) {
 }
 export function receiptText(c, r) {
   const f = getPerformance(c, r.id_funcion);
-  return `TEATRO UCB — RESERVA DE PRUEBA\n\nCódigo: ${r.codigo_reserva}\nObra: ${workForPerformance(c, f).titulo}\nFunción: ${functionDate(f)}\nButacas: ${r.butacas.map((id) => seatLabel(c, id)).join(", ")}\nNombre: ${r.nombre_contacto}\nCorreo: ${r.correo_contacto}\n\nAvance académico. Esta constancia no es una entrada real.\n`;
+  return `TEATRO UCB — CONSTANCIA DE RESERVA\n\nCódigo: ${r.codigo_reserva}\nObra: ${workForPerformance(c, f).titulo}\nFunción: ${functionDate(f)}\nButacas: ${r.butacas.map((id) => seatLabel(c, id)).join(", ")}\nNombre: ${r.nombre_contacto}\nCorreo: ${r.correo_contacto}\n\nEstado: ${r.estado}. Conserva este código para consultar tu reserva.\n`;
 }

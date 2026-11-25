@@ -18,7 +18,7 @@ export default function Hero() {
           Otras, se viven frente a un escenario.
         </p>
         <Link to="/#cartelera" className="button gold">
-          Descubre la cartelera <span aria-hidden="true">↗</span>
+          Descubre la cartelera
         </Link>
         <p className="hero-note">
           Una sala. Muchas historias. Tu próxima experiencia.

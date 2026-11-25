@@ -77,7 +77,7 @@ function freeze(value) {
 export async function fetchCatalog(signal) {
   if (useDatabase)
     return freeze(validateCatalog(await apiRequest("catalog", { signal })));
-  // Sin la base, los datos de demostración se cargan desde el archivo local.
+  // El catálogo estático permite consultar las obras sin conectar la API.
   const response = await fetch(assetUrl("data/teatro.json"), { signal });
   if (!response.ok)
     throw new Error(

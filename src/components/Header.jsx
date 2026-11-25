@@ -60,6 +60,9 @@ export default function Header() {
         <NavLink to="/cuenta">
           {account ? `Hola, ${account.nombre.split(" ")[0]}` : "Mi cuenta"}
         </NavLink>
+        {account?.rol === "ADMIN" && (
+          <NavLink to="/administracion">Administrar</NavLink>
+        )}
         <NavLink className="nav-reservas" to="/reservas">
           Mis reservas{" "}
           <span>

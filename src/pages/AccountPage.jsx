@@ -67,8 +67,8 @@ export default function AccountPage() {
           <p className="eyebrow">TU ESPACIO</p>
           <h1>Mi cuenta.</h1>
           <p className="dialog-intro">
-            Para crear una cuenta, inicia el proyecto con PostgreSQL y la API.
-            Consulta la guía incluida en el proyecto.
+            El acceso a cuentas no está disponible en este momento. Puedes
+            seguir consultando la cartelera.
           </p>
           <Link className="button outline" to="/">
             Volver al inicio
@@ -219,12 +219,10 @@ export default function AccountPage() {
           )}
           <button className="button gold full" disabled={busy} type="submit">
             {busy ? "Un momento…" : register ? "Crear cuenta" : "Ingresar"}{" "}
-            <span aria-hidden="true">↗</span>
           </button>
         </form>
         <p className="form-note account-help">
-          Proyecto académico: usa datos de prueba. Las funciones todavía no son
-          reales.
+          Tu cuenta reúne tus reservas y las actividades en las que participas.
         </p>
       </div>
     </section>

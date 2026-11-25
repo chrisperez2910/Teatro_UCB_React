@@ -2,6 +2,8 @@ import { afterEach, beforeEach, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
 beforeEach(() => {
   if (typeof window === "undefined") return;
+  vi.useFakeTimers({ toFake: ["Date"] });
+  vi.setSystemTime(new Date("2026-11-01T12:00:00-04:00"));
   localStorage.clear();
   window.matchMedia = vi.fn(() => ({
     matches: false,
@@ -19,6 +21,7 @@ beforeEach(() => {
 });
 afterEach(() => {
   cleanup();
+  vi.useRealTimers();
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
 });

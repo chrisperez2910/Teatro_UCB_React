@@ -23,24 +23,23 @@ export default function Faq() {
           <summary>¿Dónde encuentro mi reserva?</summary>
           <p>
             En «Mis reservas», en la parte superior. Desde ahí puedes descargar
-            una constancia o cancelar la reserva de prueba. En modo conectado,
-            inicia sesión para consultar tus reservas.
+            una constancia o cancelar una reserva. Inicia sesión para consultar
+            tus reservas.
           </p>
         </details>
         <details>
           <summary>¿Necesito experiencia para los talleres?</summary>
           <p>
-            Los talleres de ejemplo están pensados para principiantes. Abre la
-            convocatoria para revisar fechas, cupos y contenido antes de
-            inscribirte.
+            Los talleres están pensados para principiantes. Abre la convocatoria
+            para revisar fechas, cupos y contenido antes de inscribirte.
           </p>
         </details>
         <details>
-          <summary>¿Esta programación es oficial?</summary>
+          <summary>¿Puedo cancelar mi reserva?</summary>
           <p>
-            No. Este es un avance académico del portal Teatro UCB. Las fechas,
-            los cupos, las reseñas y los montajes son datos de ejemplo. Una
-            reserva aquí no sirve como entrada a una función real.
+            Sí. Abre «Mis reservas», elige la solicitud y confirma su
+            cancelación antes del inicio de la función. Las butacas quedarán
+            disponibles para otras personas.
           </p>
         </details>
       </div>

@@ -129,30 +129,20 @@ it("filtra por autor sin tildes y muestra resultados vacíos", async () => {
     screen.getByText(/No encontramos obras con esa búsqueda/),
   ).toBeTruthy();
 });
-it("reserva, muestra el historial y libera la butaca al cancelar", async () => {
+it("no confirma reservas sin un servidor conectado", async () => {
   app();
-  const u = userEvent.setup();
-  await u.click(
-    await screen.findByRole("button", { name: "Butaca A1, disponible" }),
-  );
-  await u.click(screen.getByRole("button", { name: "Continuar reserva" }));
-  await u.type(screen.getByLabelText("Nombre completo"), person.nombre);
-  await u.type(screen.getByLabelText("Correo electrónico"), person.correo);
-  await u.click(screen.getByRole("button", { name: "Guardar reserva" }));
-  await screen.findByRole("heading", { name: "Mis reservas." });
-  expect(JSON.parse(localStorage.getItem(STORAGE_KEY)).reservas).toHaveLength(
-    1,
-  );
-  await u.click(screen.getByText("Cancelar reserva"));
-  await u.click(screen.getByText("Sí, cancelar"));
-  expect(JSON.parse(localStorage.getItem(STORAGE_KEY)).reservas[0].estado).toBe(
-    "CANCELADA",
-  );
-  await u.click(screen.getByRole("link", { name: "Cartelera" }));
+  const button = await screen.findByRole("button", {
+    name: "Butaca A1, disponible",
+  });
+  await userEvent.click(button);
   expect(
-    (await screen.findByRole("button", { name: "Butaca A1, disponible" }))
-      .disabled,
-  ).toBe(false);
+    screen.getByRole("button", { name: "Continuar reserva" }).disabled,
+  ).toBe(true);
+  expect(
+    screen.getByText(
+      "Las reservas en línea no están disponibles en este momento.",
+    ),
+  ).toBeTruthy();
 });
 it("limpia la selección cuando cambia la función", async () => {
   app();

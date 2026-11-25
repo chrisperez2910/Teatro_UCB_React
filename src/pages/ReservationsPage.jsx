@@ -17,13 +17,15 @@ export default function ReservationsPage() {
     heading = useRef(null);
   const [confirmId, setConfirmId] = useState(null),
     [notice, setNotice] = useState("");
-  if (useDatabase && !account)
+  if (!account)
     return (
       <section className="container section narrow">
         <p className="eyebrow">TU PASO POR EL TEATRO</p>
         <h1 className="page-title">Mis reservas.</h1>
         <p className="dialog-intro">
-          Ingresa a tu cuenta para ver y gestionar tus reservas.
+          {useDatabase
+            ? "Ingresa a tu cuenta para ver y gestionar tus reservas."
+            : "Las reservas en línea no están disponibles en este momento."}
         </p>
         <Link
           className="button gold"
@@ -97,57 +99,58 @@ export default function ReservationsPage() {
               <p>
                 {r.nombre_contacto} · {r.correo_contacto}
               </p>
-              {r.estado === "CONFIRMADA" && (
-                <>
-                  <div className="history-actions">
-                    <button onClick={() => download(r)}>
-                      Descargar constancia
-                    </button>
-                    <button
-                      className="cancel"
-                      onClick={() => setConfirmId(r.id_reserva)}
-                    >
-                      Cancelar reserva
-                    </button>
-                  </div>
-                  {confirmId === r.id_reserva && (
-                    <div className="cancel-confirm">
-                      <p>
-                        ¿Cancelar esta reserva? Las butacas volverán a estar
-                        disponibles.
-                      </p>
-                      <div className="history-actions">
-                        <button
-                          className="cancel"
-                          onClick={async () => {
-                            try {
-                              await cancelReservation(r.id_reserva);
-                              setConfirmId(null);
-                              setNotice(
-                                "Reserva cancelada. Las butacas están disponibles nuevamente.",
-                              );
-                              heading.current.focus();
-                            } catch (e) {
-                              setNotice(e.message);
-                            }
-                          }}
-                        >
-                          Sí, cancelar
-                        </button>
-                        <button onClick={() => setConfirmId(null)}>
-                          Conservar reserva
-                        </button>
-                      </div>
+              {r.estado === "CONFIRMADA" &&
+                new Date(f.fecha_hora_inicio).getTime() > Date.now() && (
+                  <>
+                    <div className="history-actions">
+                      <button onClick={() => download(r)}>
+                        Descargar constancia
+                      </button>
+                      <button
+                        className="cancel"
+                        onClick={() => setConfirmId(r.id_reserva)}
+                      >
+                        Cancelar reserva
+                      </button>
                     </div>
-                  )}
-                </>
-              )}
+                    {confirmId === r.id_reserva && (
+                      <div className="cancel-confirm">
+                        <p>
+                          ¿Cancelar esta reserva? Las butacas volverán a estar
+                          disponibles.
+                        </p>
+                        <div className="history-actions">
+                          <button
+                            className="cancel"
+                            onClick={async () => {
+                              try {
+                                await cancelReservation(r.id_reserva);
+                                setConfirmId(null);
+                                setNotice(
+                                  "Reserva cancelada. Las butacas están disponibles nuevamente.",
+                                );
+                                heading.current.focus();
+                              } catch (e) {
+                                setNotice(e.message);
+                              }
+                            }}
+                          >
+                            Sí, cancelar
+                          </button>
+                          <button onClick={() => setConfirmId(null)}>
+                            Conservar reserva
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
             </article>
           );
         })
       )}
       <p className="section-note">
-        Estas constancias pertenecen a la demostración y no son entradas reales.
+        Puedes descargar tu constancia y consultar el estado de cada reserva.
       </p>
     </section>
   );

@@ -18,7 +18,7 @@ function PlayCard({ work, authors, performances }) {
       >
         <img
           src={assetUrl(`assets/images/${work.imagen}`)}
-          alt={`Afiche ilustrado de ${work.titulo}`}
+          alt={`Imagen de ${work.titulo}`}
           width="600"
           height="750"
           loading="lazy"
@@ -37,7 +37,7 @@ function PlayCard({ work, authors, performances }) {
       </details>
       {performances[0] && (
         <p className="next-date">
-          Función de ejemplo · {functionDate(performances[0])}
+          Próxima función · {functionDate(performances[0])}
         </p>
       )}
       <div className="play-actions">
@@ -49,7 +49,7 @@ function PlayCard({ work, authors, performances }) {
             className="button outline"
             to={`/?funcion=${performances[0].id_funcion}#butacas`}
           >
-            Reservar <span aria-hidden="true">↗</span>
+            Reservar
           </Link>
         )}
       </div>

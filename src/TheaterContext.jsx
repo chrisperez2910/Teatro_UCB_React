@@ -20,6 +20,38 @@ export function TheaterProvider({ catalog, children }) {
     error: "",
   });
   const [revision, setRevision] = useState(0);
+  const [syncError, setSyncError] = useState("");
+  // Una sola consulta en vuelo. Las respuestas antiguas no pisan una reserva recién confirmada.
+  useEffect(() => {
+    if (!useDatabase || remote.status !== "success") return;
+    let active = true,
+      pending = false;
+    const refresh = async () => {
+      if (pending || document.visibilityState === "hidden") return;
+      pending = true;
+      try {
+        const data = await apiRequest("session");
+        if (active) {
+          setRemote({ status: "success", data, error: "" });
+          setSyncError("");
+        }
+      } catch {
+        if (active)
+          setSyncError(
+            "No pudimos actualizar la disponibilidad. Revisa tu conexión; cada reserva se valida al confirmar.",
+          );
+      } finally {
+        pending = false;
+      }
+    };
+    const timer = setInterval(refresh, 10000);
+    window.addEventListener("focus", refresh);
+    return () => {
+      active = false;
+      clearInterval(timer);
+      window.removeEventListener("focus", refresh);
+    };
+  }, [remote]);
   useEffect(() => {
     if (!useDatabase) return;
     let active = true;
@@ -40,8 +72,10 @@ export function TheaterProvider({ catalog, children }) {
     useDatabase && remote.data
       ? {
           ...catalog,
+          funciones: remote.data.funciones || catalog.funciones,
           reservaButacaEjemplo: remote.data.occupied,
           workshopCounts: remote.data.workshopCounts,
+          funcionButaca: remote.data.funcionButaca || catalog.funcionButaca,
         }
       : catalog;
   const reload = () => setRevision((v) => v + 1);
@@ -124,7 +158,7 @@ export function TheaterProvider({ catalog, children }) {
       reserve,
       cancelReservation,
       enroll,
-      warning: useDatabase ? "" : warning,
+      warning: useDatabase ? syncError : warning,
       account,
       useDatabase,
       authenticate,
@@ -132,6 +166,7 @@ export function TheaterProvider({ catalog, children }) {
     }),
     [
       activeCatalog,
+      syncError,
       state,
       reserve,
       cancelReservation,

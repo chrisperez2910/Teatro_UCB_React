@@ -57,7 +57,6 @@ export default function ArchiveSection() {
                       height="625"
                     />
                   </picture>
-                  <span aria-hidden="true">↗</span>
                 </button>
                 <div className="archive-meta">
                   <h3>{work.titulo}</h3>
@@ -74,10 +73,7 @@ export default function ArchiveSection() {
             );
           })}
       </div>
-      <p className="section-note">
-        Montajes, imágenes y reseñas de ejemplo para presentar el archivo del
-        teatro.
-      </p>
+
       {selected && (
         <Dialog
           id="gallery-dialog"

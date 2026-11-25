@@ -8,6 +8,8 @@ import { LoadingState, ErrorState } from "./components/RequestState.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 const PlayDetailPage = lazy(() => import("./pages/PlayDetailPage.jsx"));
+const ReportsPage = lazy(() => import("./pages/ReportsPage.jsx"));
+const AdminPage = lazy(() => import("./pages/AdminPage.jsx"));
 const AccountPage = lazy(() => import("./pages/AccountPage.jsx"));
 const ReservationsPage = lazy(() => import("./pages/ReservationsPage.jsx"));
 function TheaterApp() {
@@ -35,6 +37,8 @@ function TheaterApp() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/obras/:id" element={<PlayDetailPage />} />
+            <Route path="/administracion/reportes" element={<ReportsPage />} />
+            <Route path="/administracion" element={<AdminPage />} />
             <Route path="/cuenta" element={<AccountPage />} />
             <Route path="/reservas" element={<ReservationsPage />} />
             <Route path="*" element={<NotFoundPage />} />

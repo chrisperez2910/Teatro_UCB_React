@@ -57,7 +57,7 @@ export default function FeaturedCarousel() {
         <div className="featured-poster">
           <img
             src={assetUrl(`assets/images/${work.imagen}`)}
-            alt={`Afiche ilustrativo de ${work.titulo}`}
+            alt={`Imagen de ${work.titulo}`}
           />
         </div>
         <div className="featured-copy">
@@ -71,11 +71,11 @@ export default function FeaturedCarousel() {
           <p>{work.sinopsis}</p>
           {shows[0] && (
             <p className="featured-date">
-              PRÓXIMA FUNCIÓN DE EJEMPLO · {functionDate(shows[0])}
+              PRÓXIMA FUNCIÓN · {functionDate(shows[0])}
             </p>
           )}
           <Link className="button outline" to={`/obras/${work.id_obra}`}>
-            Conoce la obra <span aria-hidden="true">↗</span>
+            Conoce la obra
           </Link>
         </div>
       </article>

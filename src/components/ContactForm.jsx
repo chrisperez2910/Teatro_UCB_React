@@ -91,7 +91,6 @@ export default function ContactForm({
         disabled={completed || status.kind === "pending"}
       >
         {completed ? successButtonText : buttonText}
-        <span aria-hidden="true">↗</span>
       </button>
     </form>
   );

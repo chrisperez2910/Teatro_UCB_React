@@ -16,7 +16,8 @@ export default function Footer() {
         </span>
       </Link>
       <p>
-        Proyecto académico · Tecnologías Web I<br />
+        Teatro UCB · Un espacio para sentir
+        <br />
         Universidad Católica Boliviana «San Pablo»
       </p>
       <Link to="/#inicio" className="back-top">
