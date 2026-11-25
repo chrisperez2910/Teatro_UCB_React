@@ -1,7 +1,7 @@
 {
   "name": "teatro-ucb-react",
   "private": true,
-  "version": "4.0.0",
+  "version": "5.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +13,10 @@
     "db:setup": "node server/db/setup.js",
     "dev:full": "node server/dev.js",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "admin:grant": "node server/admin.js",
+    "start": "node server/index.js",
+    "build:full": "node server/build.js"
   },
   "engines": {
     "node": "^22.12.0 || >=24.0.0"

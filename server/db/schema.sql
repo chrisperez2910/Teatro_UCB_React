@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS funcion_butaca(id_funcion integer NOT NULL REFERENCES
 CREATE TABLE IF NOT EXISTS imagen_produccion(id_imagen integer PRIMARY KEY,id_produccion integer NOT NULL REFERENCES produccion,url_original text NOT NULL,url_pequena text NOT NULL,texto_alternativo text NOT NULL,orden integer NOT NULL);
 CREATE TABLE IF NOT EXISTS resena(id_resena integer PRIMARY KEY,id_produccion integer NOT NULL REFERENCES produccion,nombre_autor text NOT NULL,contenido text NOT NULL,fecha_publicacion date);
 CREATE TABLE IF NOT EXISTS taller(id_taller integer PRIMARY KEY,titulo text NOT NULL,descripcion text NOT NULL,convocatoria_texto text NOT NULL,horario text NOT NULL,fecha_inicio date NOT NULL,fecha_fin date NOT NULL,fecha_limite_inscripcion date NOT NULL,cupo_maximo integer NOT NULL CHECK(cupo_maximo>0),estado text NOT NULL CHECK(estado IN ('ABIERTO','CERRADO')));
--- La clave de visitante solo identifica una sesión de demostración, no sustituye autenticación.
+-- Se conserva visitor_key para leer las reservas de versiones anteriores.
 CREATE TABLE IF NOT EXISTS reserva(id_reserva uuid PRIMARY KEY,id_funcion integer NOT NULL REFERENCES funcion,nombre_contacto varchar(80) NOT NULL,correo_contacto varchar(120) NOT NULL,codigo_reserva varchar(30) UNIQUE NOT NULL,estado text NOT NULL CHECK(estado IN ('CONFIRMADA','CANCELADA')),creada_en timestamptz NOT NULL DEFAULT now(),visitor_key uuid NOT NULL);
 CREATE TABLE IF NOT EXISTS reserva_butaca(id_reserva uuid NOT NULL REFERENCES reserva,id_funcion integer NOT NULL,id_butaca integer NOT NULL,activa boolean NOT NULL DEFAULT true,PRIMARY KEY(id_reserva,id_butaca),FOREIGN KEY(id_funcion,id_butaca) REFERENCES funcion_butaca);
 CREATE UNIQUE INDEX IF NOT EXISTS uq_butaca_activa ON reserva_butaca(id_funcion,id_butaca) WHERE activa;
@@ -40,3 +40,28 @@ ALTER TABLE reserva ADD COLUMN IF NOT EXISTS id_usuario uuid REFERENCES usuario(
 ALTER TABLE inscripcion_taller ADD COLUMN IF NOT EXISTS id_usuario uuid REFERENCES usuario(id_usuario);
 CREATE INDEX IF NOT EXISTS ix_reserva_usuario ON reserva(id_usuario,creada_en DESC);
 CREATE INDEX IF NOT EXISTS ix_inscripcion_usuario ON inscripcion_taller(id_usuario);
+
+-- Permisos de administración. Las cuentas nuevas siempre son espectadores.
+ALTER TABLE usuario ADD COLUMN IF NOT EXISTS rol text NOT NULL DEFAULT 'USUARIO' CHECK (rol IN ('USUARIO','ADMIN'));
+CREATE TABLE IF NOT EXISTS cambio_butaca (
+  id_cambio bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  id_usuario uuid NOT NULL REFERENCES usuario,
+  id_funcion integer NOT NULL,
+  id_butaca integer NOT NULL,
+  habilitada boolean NOT NULL,
+  cambiado_en timestamptz NOT NULL DEFAULT now(),
+  FOREIGN KEY (id_funcion,id_butaca) REFERENCES funcion_butaca
+);
+
+CREATE INDEX IF NOT EXISTS ix_reserva_funcion_estado ON reserva(id_funcion,estado);
+CREATE INDEX IF NOT EXISTS ix_reserva_creada ON reserva(creada_en DESC);
+CREATE TABLE IF NOT EXISTS migracion_aplicada(nombre text PRIMARY KEY, aplicada_en timestamptz NOT NULL DEFAULT now());
+
+CREATE TABLE IF NOT EXISTS cambio_funcion (
+  id_cambio bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  id_usuario uuid NOT NULL REFERENCES usuario,
+  id_funcion integer NOT NULL REFERENCES funcion,
+  inicio_anterior timestamptz NOT NULL,
+  inicio_nuevo timestamptz NOT NULL,
+  cambiado_en timestamptz NOT NULL DEFAULT now()
+);

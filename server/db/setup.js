@@ -37,13 +37,41 @@ try {
       );
     }
   }
-  for (const row of seed.reservaButacaEjemplo)
+  const migration = await db.query(
+    "INSERT INTO migracion_aplicada(nombre) VALUES('v5-imagenes-y-catalogo') ON CONFLICT DO NOTHING RETURNING nombre",
+  );
+  if (migration.rowCount) {
+    for (const obra of seed.obras) {
+      await db.query(
+        "UPDATE obra SET imagen=$1 WHERE id_obra=$2 AND titulo=$3",
+        [obra.imagen, obra.id_obra, obra.titulo],
+      );
+      if (obra.video_avance_url)
+        await db.query(
+          "UPDATE obra SET video_avance_url=$1 WHERE id_obra=$2 AND titulo=$3 AND (video_avance_url IS NULL OR video_avance_url='assets/video/avance-demo.mp4')",
+          [obra.video_avance_url, obra.id_obra, obra.titulo],
+        );
+    }
+    for (const img of seed.imagenes)
+      await db.query(
+        "UPDATE imagen_produccion SET url_original=$1,url_pequena=$2,texto_alternativo=$3 WHERE id_imagen=$4 AND id_produccion=$5",
+        [
+          img.url_original,
+          img.url_pequena,
+          img.texto_alternativo,
+          img.id_imagen,
+          img.id_produccion,
+        ],
+      );
     await db.query(
-      "INSERT INTO ocupacion_ejemplo(id_funcion,id_butaca,vigente) VALUES($1,$2,$3) ON CONFLICT DO NOTHING",
-      [row.id_funcion, row.id_butaca, row.vigente],
+      "UPDATE sala SET nombre='Sala principal' WHERE nombre='Sala principal · ejemplo'",
     );
+    // Estos lugares proceden únicamente de la antigua carga de demostración.
+    // Las reservas y reserva_butaca de los usuarios permanecen intactas.
+    await db.query("UPDATE ocupacion_ejemplo SET vigente=false WHERE vigente");
+  }
   await db.query("COMMIT");
-  console.log("Esquema y cartelera de ejemplo instalados.");
+  console.log("Base de datos actualizada.");
 } catch (error) {
   await db.query("ROLLBACK");
   console.error(error);

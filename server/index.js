@@ -1,6 +1,8 @@
 import { createServer } from "node:http";
 import { randomUUID, randomBytes } from "node:crypto";
 import pg from "pg";
+import { serveFrontend } from "./static.js";
+import { getReport, reportFilters } from "./reports.js";
 import {
   hashPassword,
   verifyPassword,
@@ -44,7 +46,7 @@ async function currentUser(req) {
   return (
     (
       await pool.query(
-        `SELECT u.id_usuario,u.nombre,u.correo FROM sesion_usuario s JOIN usuario u ON u.id_usuario=s.id_usuario WHERE s.token_hash=$1 AND s.expira_en>now()`,
+        `SELECT u.id_usuario,u.nombre,u.correo,u.rol FROM sesion_usuario s JOIN usuario u ON u.id_usuario=s.id_usuario WHERE s.token_hash=$1 AND s.expira_en>now()`,
         [tokenHash(token)],
       )
     ).rows[0] || null
@@ -97,7 +99,10 @@ async function readBody(req) {
       throw new HttpError(413, "Solicitud demasiado grande.");
   }
   try {
-    return JSON.parse(content);
+    const body = JSON.parse(content);
+    if (!body || typeof body !== "object" || Array.isArray(body))
+      throw new Error("Se esperaba un objeto.");
+    return body;
   } catch {
     throw new HttpError(400, "El cuerpo debe ser JSON válido.");
   }
@@ -148,6 +153,7 @@ async function catalog() {
   const out = {};
   for (const [key, table] of Object.entries(tables))
     out[key] = (await pool.query(`SELECT * FROM ${table}`)).rows;
+  out.resenas = out.resenas.filter((r) => !/ejemplo/i.test(r.nombre_autor));
   out.reservaButacaEjemplo = await occupied(pool);
   return out;
 }
@@ -185,6 +191,10 @@ async function session(user) {
     state: { version: 1, reservas, inscripciones },
     occupied: await occupied(pool),
     workshopCounts,
+    funcionButaca: (await pool.query("SELECT * FROM funcion_butaca")).rows,
+    funciones: (
+      await pool.query("SELECT * FROM funcion ORDER BY fecha_hora_inicio")
+    ).rows,
   };
 }
 async function book(user, body) {
@@ -207,7 +217,7 @@ async function book(user, body) {
     );
     const f = (
       await db.query(
-        "SELECT id_sala FROM funcion WHERE id_funcion=$1 AND estado='PROGRAMADA'",
+        "SELECT f.id_sala FROM funcion f JOIN sala s ON s.id_sala=f.id_sala WHERE f.id_funcion=$1 AND f.estado='PROGRAMADA' AND f.fecha_hora_inicio>now() AND s.activa",
         [id],
       )
     ).rows[0];
@@ -253,12 +263,17 @@ async function cancel(user, id) {
   return transaction(async (db) => {
     const r = (
       await db.query(
-        "SELECT estado FROM reserva WHERE id_reserva=$1 AND id_usuario=$2 FOR UPDATE",
+        "SELECT r.estado,f.fecha_hora_inicio FROM reserva r JOIN funcion f ON f.id_funcion=r.id_funcion WHERE r.id_reserva=$1 AND r.id_usuario=$2 FOR UPDATE OF r",
         [id, user.id_usuario],
       )
     ).rows[0];
     if (!r)
       throw new HttpError(404, "No encontramos esa reserva en tu cuenta.");
+    if (new Date(r.fecha_hora_inicio).getTime() <= Date.now())
+      throw new HttpError(
+        409,
+        "La función ya comenzó; no se puede cancelar la reserva.",
+      );
     if (r.estado !== "CONFIRMADA")
       throw new HttpError(409, "La reserva ya estaba cancelada.");
     await db.query(
@@ -279,7 +294,7 @@ async function enroll(user, body) {
   return transaction(async (db) => {
     const t = (
       await db.query(
-        "SELECT estado,cupo_maximo FROM taller WHERE id_taller=$1 FOR UPDATE",
+        "SELECT estado,cupo_maximo FROM taller WHERE id_taller=$1 AND fecha_limite_inscripcion >= (now() AT TIME ZONE 'America/La_Paz')::date FOR UPDATE",
         [id],
       )
     ).rows[0];
@@ -301,14 +316,96 @@ async function enroll(user, body) {
     return { ok: true };
   });
 }
+function requireAdmin(user) {
+  requireUser(user);
+  if (user.rol !== "ADMIN")
+    throw new HttpError(403, "Esta sección es solo para administradores.");
+}
+async function adminSeats(id) {
+  if (!Number.isInteger(id) || id < 1)
+    throw new HttpError(400, "Función inválida.");
+  const result = await pool.query(
+    `SELECT b.id_butaca,b.fila,b.numero,b.activa,fb.habilitada,
+    (EXISTS(SELECT 1 FROM reserva_butaca r WHERE r.id_funcion=fb.id_funcion AND r.id_butaca=b.id_butaca AND r.activa)
+    OR EXISTS(SELECT 1 FROM ocupacion_ejemplo e WHERE e.id_funcion=fb.id_funcion AND e.id_butaca=b.id_butaca AND e.vigente)) AS ocupada
+    FROM funcion_butaca fb JOIN butaca b ON b.id_butaca=fb.id_butaca
+    JOIN funcion f ON f.id_funcion=fb.id_funcion AND f.id_sala=b.id_sala
+    WHERE fb.id_funcion=$1 ORDER BY b.posicion_y,b.posicion_x`,
+    [id],
+  );
+  return { butacas: result.rows };
+}
+async function changeSeat(user, id, seat, body) {
+  if (
+    !Number.isInteger(id) ||
+    !Number.isInteger(seat) ||
+    typeof body?.habilitada !== "boolean"
+  )
+    throw new HttpError(400, "Revisa la función, la butaca y su estado.");
+  return transaction(async (db) => {
+    // Comparte el mismo bloqueo que una reserva: no se puede bloquear un lugar mientras se reserva.
+    await db.query(
+      "SELECT id_funcion FROM funcion WHERE id_funcion=$1 FOR UPDATE",
+      [id],
+    );
+    const record = (
+      await db.query(
+        `SELECT fb.habilitada,b.activa FROM funcion_butaca fb
+      JOIN butaca b ON b.id_butaca=fb.id_butaca JOIN funcion f ON f.id_funcion=fb.id_funcion AND f.id_sala=b.id_sala
+      WHERE fb.id_funcion=$1 AND fb.id_butaca=$2`,
+        [id, seat],
+      )
+    ).rows[0];
+    if (!record)
+      throw new HttpError(404, "La butaca no pertenece a esta función.");
+    if (!record.activa && body.habilitada)
+      throw new HttpError(
+        409,
+        "Esta butaca está fuera de servicio en la sala.",
+      );
+    const used = (
+      await db.query(
+        `SELECT 1 FROM reserva_butaca WHERE id_funcion=$1 AND id_butaca=$2 AND activa
+      UNION ALL SELECT 1 FROM ocupacion_ejemplo WHERE id_funcion=$1 AND id_butaca=$2 AND vigente`,
+        [id, seat],
+      )
+    ).rows;
+    if (used.length)
+      throw new HttpError(
+        409,
+        "La butaca está ocupada. No se puede modificar una reserva desde este control.",
+      );
+    if (record.habilitada !== body.habilitada) {
+      await db.query(
+        "UPDATE funcion_butaca SET habilitada=$3 WHERE id_funcion=$1 AND id_butaca=$2",
+        [id, seat, body.habilitada],
+      );
+      await db.query(
+        "INSERT INTO cambio_butaca(id_usuario,id_funcion,id_butaca,habilitada) VALUES($1,$2,$3,$4)",
+        [user.id_usuario, id, seat, body.habilitada],
+      );
+    }
+    return { ok: true };
+  });
+}
 const server = createServer(async (req, res) => {
   try {
     const origin = req.headers.origin;
     if (origin && origin !== allowedOrigin)
       throw new HttpError(403, "Origen no autorizado.");
-    const path = new URL(req.url, "http://localhost").pathname;
-    if (req.method === "GET" && path === "/api/health")
-      return send(res, 200, { ok: true });
+    const requestUrl = new URL(req.url, "http://localhost");
+    const path = requestUrl.pathname;
+    if (
+      req.method === "GET" &&
+      !path.startsWith("/api/") &&
+      process.env.SERVE_FRONTEND === "true" &&
+      (await serveFrontend(path, res))
+    )
+      return;
+    if (req.method === "GET" && path === "/api/health") {
+      await pool.query("SELECT 1");
+      return send(res, 200, { ok: true, database: "connected" });
+    }
     if (req.method === "GET" && path === "/api/catalog")
       return send(res, 200, await catalog());
     if (req.method === "POST" && origin !== allowedOrigin)
@@ -322,7 +419,7 @@ const server = createServer(async (req, res) => {
           400,
           "La contraseña debe tener entre 8 y 128 caracteres.",
         );
-      const user = { id_usuario: randomUUID(), nombre, correo };
+      const user = { id_usuario: randomUUID(), nombre, correo, rol: "USUARIO" };
       await pool.query(
         "INSERT INTO usuario(id_usuario,nombre,correo,clave_hash) VALUES($1,$2,$3,$4)",
         [user.id_usuario, nombre, correo, await hashPassword(body.password)],
@@ -341,7 +438,7 @@ const server = createServer(async (req, res) => {
         throw new HttpError(400, "Revisa los datos ingresados.");
       const record = (
         await pool.query(
-          "SELECT id_usuario,nombre,correo,clave_hash FROM usuario WHERE lower(correo)=$1",
+          "SELECT id_usuario,nombre,correo,clave_hash,rol FROM usuario WHERE lower(correo)=$1",
           [correo],
         )
       ).rows[0];
@@ -351,6 +448,7 @@ const server = createServer(async (req, res) => {
         id_usuario: record.id_usuario,
         nombre: record.nombre,
         correo: record.correo,
+        rol: record.rol,
       };
       const token = await createSession(user);
       return send(res, 200, await session(user), {
@@ -370,6 +468,97 @@ const server = createServer(async (req, res) => {
     const user = await currentUser(req);
     if (req.method === "GET" && path === "/api/session")
       return send(res, 200, await session(user));
+    if (req.method === "GET" && path === "/api/admin/reportes") {
+      requireAdmin(user);
+      return send(
+        res,
+        200,
+        await getReport(pool, reportFilters(requestUrl.searchParams)),
+      );
+    }
+    const schedulePath = path.match(
+      /^\/api\/admin\/funciones\/(\d+)\/programacion$/,
+    );
+    if (req.method === "POST" && schedulePath) {
+      requireAdmin(user);
+      const body = await readBody(req),
+        id = Number(schedulePath[1]);
+      const start =
+        typeof body.inicio === "string" ? new Date(body.inicio) : new Date(NaN);
+      if (!Number.isFinite(start.getTime()) || start.getTime() <= Date.now())
+        throw new HttpError(400, "Elige una fecha y hora futuras.");
+      await transaction(async (db) => {
+        const f = (
+          await db.query(
+            "SELECT * FROM funcion WHERE id_funcion=$1 FOR UPDATE",
+            [id],
+          )
+        ).rows[0];
+        if (!f) throw new HttpError(404, "Función no encontrada.");
+        if (
+          (
+            await db.query(
+              "SELECT 1 FROM reserva WHERE id_funcion=$1 AND estado='CONFIRMADA' LIMIT 1",
+              [id],
+            )
+          ).rowCount
+        )
+          throw new HttpError(
+            409,
+            "Esta función tiene reservas confirmadas. No se puede cambiar su horario desde este formulario.",
+          );
+        const duration = (
+          await db.query(
+            "SELECT o.duracion_minutos FROM obra o JOIN produccion p ON p.id_obra=o.id_obra WHERE p.id_produccion=$1",
+            [f.id_produccion],
+          )
+        ).rows[0].duracion_minutos;
+        const end = new Date(start.getTime() + duration * 60000);
+        // Serializa los cambios de horario de la misma sala.
+        await db.query("SELECT id_sala FROM sala WHERE id_sala=$1 FOR UPDATE", [
+          f.id_sala,
+        ]);
+        if (
+          (
+            await db.query(
+              "SELECT 1 FROM funcion WHERE id_sala=$1 AND id_funcion<>$2 AND estado='PROGRAMADA' AND fecha_hora_inicio<$4 AND fecha_hora_fin>$3",
+              [f.id_sala, id, start, end],
+            )
+          ).rowCount
+        )
+          throw new HttpError(
+            409,
+            "La sala ya tiene otra función en ese horario.",
+          );
+        await db.query(
+          "UPDATE funcion SET fecha_hora_inicio=$2,fecha_hora_fin=$3,estado='PROGRAMADA' WHERE id_funcion=$1",
+          [id, start, end],
+        );
+        await db.query(
+          "INSERT INTO cambio_funcion(id_usuario,id_funcion,inicio_anterior,inicio_nuevo) VALUES($1,$2,$3,$4)",
+          [user.id_usuario, id, f.fecha_hora_inicio, start],
+        );
+      });
+      return send(res, 200, { ok: true });
+    }
+    const adminSeatPath = path.match(
+      /^\/api\/admin\/funciones\/(\d+)\/butacas(?:\/(\d+))?$/,
+    );
+    if (adminSeatPath) {
+      requireAdmin(user);
+      const id = Number(adminSeatPath[1]);
+      if (req.method === "GET" && !adminSeatPath[2])
+        return send(res, 200, await adminSeats(id));
+      if (req.method === "POST" && adminSeatPath[2]) {
+        await changeSeat(
+          user,
+          id,
+          Number(adminSeatPath[2]),
+          await readBody(req),
+        );
+        return send(res, 200, await adminSeats(id));
+      }
+    }
     if (req.method === "POST" && path === "/api/reservas") {
       requireUser(user);
       const result = await book(user, await readBody(req));
@@ -405,8 +594,11 @@ const server = createServer(async (req, res) => {
     });
   }
 });
-if (process.env.NODE_ENV !== "test")
-  server.listen(Number(process.env.API_PORT) || 3001, "127.0.0.1", () =>
-    console.log("API Teatro UCB: http://127.0.0.1:3001"),
+if (process.env.NODE_ENV !== "test") {
+  const port = Number(process.env.PORT || process.env.API_PORT) || 3001;
+  const host = process.env.API_HOST || "127.0.0.1";
+  server.listen(port, host, () =>
+    console.log(`Teatro UCB: http://${host}:${port}`),
   );
+}
 export { server, pool };
