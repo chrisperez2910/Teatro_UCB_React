@@ -1,0 +1,1806 @@
+{
+  "butacas": [
+    {
+      "id_butaca": 1,
+      "id_sala": 1,
+      "fila": "A",
+      "numero": 1,
+      "posicion_x": 0,
+      "posicion_y": 0,
+      "activa": true
+    },
+    {
+      "id_butaca": 2,
+      "id_sala": 1,
+      "fila": "A",
+      "numero": 2,
+      "posicion_x": 1,
+      "posicion_y": 0,
+      "activa": true
+    },
+    {
+      "id_butaca": 3,
+      "id_sala": 1,
+      "fila": "A",
+      "numero": 3,
+      "posicion_x": 2,
+      "posicion_y": 0,
+      "activa": true
+    },
+    {
+      "id_butaca": 4,
+      "id_sala": 1,
+      "fila": "A",
+      "numero": 4,
+      "posicion_x": 3,
+      "posicion_y": 0,
+      "activa": true
+    },
+    {
+      "id_butaca": 5,
+      "id_sala": 1,
+      "fila": "A",
+      "numero": 5,
+      "posicion_x": 4,
+      "posicion_y": 0,
+      "activa": true
+    },
+    {
+      "id_butaca": 6,
+      "id_sala": 1,
+      "fila": "A",
+      "numero": 6,
+      "posicion_x": 5,
+      "posicion_y": 0,
+      "activa": true
+    },
+    {
+      "id_butaca": 7,
+      "id_sala": 1,
+      "fila": "A",
+      "numero": 7,
+      "posicion_x": 6,
+      "posicion_y": 0,
+      "activa": true
+    },
+    {
+      "id_butaca": 8,
+      "id_sala": 1,
+      "fila": "A",
+      "numero": 8,
+      "posicion_x": 7,
+      "posicion_y": 0,
+      "activa": true
+    },
+    {
+      "id_butaca": 9,
+      "id_sala": 1,
+      "fila": "B",
+      "numero": 1,
+      "posicion_x": 0,
+      "posicion_y": 1,
+      "activa": true
+    },
+    {
+      "id_butaca": 10,
+      "id_sala": 1,
+      "fila": "B",
+      "numero": 2,
+      "posicion_x": 1,
+      "posicion_y": 1,
+      "activa": true
+    },
+    {
+      "id_butaca": 11,
+      "id_sala": 1,
+      "fila": "B",
+      "numero": 3,
+      "posicion_x": 2,
+      "posicion_y": 1,
+      "activa": true
+    },
+    {
+      "id_butaca": 12,
+      "id_sala": 1,
+      "fila": "B",
+      "numero": 4,
+      "posicion_x": 3,
+      "posicion_y": 1,
+      "activa": true
+    },
+    {
+      "id_butaca": 13,
+      "id_sala": 1,
+      "fila": "B",
+      "numero": 5,
+      "posicion_x": 4,
+      "posicion_y": 1,
+      "activa": true
+    },
+    {
+      "id_butaca": 14,
+      "id_sala": 1,
+      "fila": "B",
+      "numero": 6,
+      "posicion_x": 5,
+      "posicion_y": 1,
+      "activa": true
+    },
+    {
+      "id_butaca": 15,
+      "id_sala": 1,
+      "fila": "B",
+      "numero": 7,
+      "posicion_x": 6,
+      "posicion_y": 1,
+      "activa": true
+    },
+    {
+      "id_butaca": 16,
+      "id_sala": 1,
+      "fila": "B",
+      "numero": 8,
+      "posicion_x": 7,
+      "posicion_y": 1,
+      "activa": true
+    },
+    {
+      "id_butaca": 17,
+      "id_sala": 1,
+      "fila": "C",
+      "numero": 1,
+      "posicion_x": 0,
+      "posicion_y": 2,
+      "activa": true
+    },
+    {
+      "id_butaca": 18,
+      "id_sala": 1,
+      "fila": "C",
+      "numero": 2,
+      "posicion_x": 1,
+      "posicion_y": 2,
+      "activa": true
+    },
+    {
+      "id_butaca": 19,
+      "id_sala": 1,
+      "fila": "C",
+      "numero": 3,
+      "posicion_x": 2,
+      "posicion_y": 2,
+      "activa": true
+    },
+    {
+      "id_butaca": 20,
+      "id_sala": 1,
+      "fila": "C",
+      "numero": 4,
+      "posicion_x": 3,
+      "posicion_y": 2,
+      "activa": true
+    },
+    {
+      "id_butaca": 21,
+      "id_sala": 1,
+      "fila": "C",
+      "numero": 5,
+      "posicion_x": 4,
+      "posicion_y": 2,
+      "activa": true
+    },
+    {
+      "id_butaca": 22,
+      "id_sala": 1,
+      "fila": "C",
+      "numero": 6,
+      "posicion_x": 5,
+      "posicion_y": 2,
+      "activa": true
+    },
+    {
+      "id_butaca": 23,
+      "id_sala": 1,
+      "fila": "C",
+      "numero": 7,
+      "posicion_x": 6,
+      "posicion_y": 2,
+      "activa": true
+    },
+    {
+      "id_butaca": 24,
+      "id_sala": 1,
+      "fila": "C",
+      "numero": 8,
+      "posicion_x": 7,
+      "posicion_y": 2,
+      "activa": true
+    },
+    {
+      "id_butaca": 25,
+      "id_sala": 1,
+      "fila": "D",
+      "numero": 1,
+      "posicion_x": 0,
+      "posicion_y": 3,
+      "activa": true
+    },
+    {
+      "id_butaca": 26,
+      "id_sala": 1,
+      "fila": "D",
+      "numero": 2,
+      "posicion_x": 1,
+      "posicion_y": 3,
+      "activa": true
+    },
+    {
+      "id_butaca": 27,
+      "id_sala": 1,
+      "fila": "D",
+      "numero": 3,
+      "posicion_x": 2,
+      "posicion_y": 3,
+      "activa": true
+    },
+    {
+      "id_butaca": 28,
+      "id_sala": 1,
+      "fila": "D",
+      "numero": 4,
+      "posicion_x": 3,
+      "posicion_y": 3,
+      "activa": true
+    },
+    {
+      "id_butaca": 29,
+      "id_sala": 1,
+      "fila": "D",
+      "numero": 5,
+      "posicion_x": 4,
+      "posicion_y": 3,
+      "activa": true
+    },
+    {
+      "id_butaca": 30,
+      "id_sala": 1,
+      "fila": "D",
+      "numero": 6,
+      "posicion_x": 5,
+      "posicion_y": 3,
+      "activa": true
+    },
+    {
+      "id_butaca": 31,
+      "id_sala": 1,
+      "fila": "D",
+      "numero": 7,
+      "posicion_x": 6,
+      "posicion_y": 3,
+      "activa": true
+    },
+    {
+      "id_butaca": 32,
+      "id_sala": 1,
+      "fila": "D",
+      "numero": 8,
+      "posicion_x": 7,
+      "posicion_y": 3,
+      "activa": true
+    },
+    {
+      "id_butaca": 33,
+      "id_sala": 1,
+      "fila": "E",
+      "numero": 1,
+      "posicion_x": 0,
+      "posicion_y": 4,
+      "activa": true
+    },
+    {
+      "id_butaca": 34,
+      "id_sala": 1,
+      "fila": "E",
+      "numero": 2,
+      "posicion_x": 1,
+      "posicion_y": 4,
+      "activa": true
+    },
+    {
+      "id_butaca": 35,
+      "id_sala": 1,
+      "fila": "E",
+      "numero": 3,
+      "posicion_x": 2,
+      "posicion_y": 4,
+      "activa": true
+    },
+    {
+      "id_butaca": 36,
+      "id_sala": 1,
+      "fila": "E",
+      "numero": 4,
+      "posicion_x": 3,
+      "posicion_y": 4,
+      "activa": true
+    },
+    {
+      "id_butaca": 37,
+      "id_sala": 1,
+      "fila": "E",
+      "numero": 5,
+      "posicion_x": 4,
+      "posicion_y": 4,
+      "activa": true
+    },
+    {
+      "id_butaca": 38,
+      "id_sala": 1,
+      "fila": "E",
+      "numero": 6,
+      "posicion_x": 5,
+      "posicion_y": 4,
+      "activa": true
+    },
+    {
+      "id_butaca": 39,
+      "id_sala": 1,
+      "fila": "E",
+      "numero": 7,
+      "posicion_x": 6,
+      "posicion_y": 4,
+      "activa": true
+    },
+    {
+      "id_butaca": 40,
+      "id_sala": 1,
+      "fila": "E",
+      "numero": 8,
+      "posicion_x": 7,
+      "posicion_y": 4,
+      "activa": true
+    },
+    {
+      "id_butaca": 41,
+      "id_sala": 1,
+      "fila": "F",
+      "numero": 1,
+      "posicion_x": 0,
+      "posicion_y": 5,
+      "activa": true
+    },
+    {
+      "id_butaca": 42,
+      "id_sala": 1,
+      "fila": "F",
+      "numero": 2,
+      "posicion_x": 1,
+      "posicion_y": 5,
+      "activa": true
+    },
+    {
+      "id_butaca": 43,
+      "id_sala": 1,
+      "fila": "F",
+      "numero": 3,
+      "posicion_x": 2,
+      "posicion_y": 5,
+      "activa": true
+    },
+    {
+      "id_butaca": 44,
+      "id_sala": 1,
+      "fila": "F",
+      "numero": 4,
+      "posicion_x": 3,
+      "posicion_y": 5,
+      "activa": true
+    },
+    {
+      "id_butaca": 45,
+      "id_sala": 1,
+      "fila": "F",
+      "numero": 5,
+      "posicion_x": 4,
+      "posicion_y": 5,
+      "activa": true
+    },
+    {
+      "id_butaca": 46,
+      "id_sala": 1,
+      "fila": "F",
+      "numero": 6,
+      "posicion_x": 5,
+      "posicion_y": 5,
+      "activa": true
+    },
+    {
+      "id_butaca": 47,
+      "id_sala": 1,
+      "fila": "F",
+      "numero": 7,
+      "posicion_x": 6,
+      "posicion_y": 5,
+      "activa": true
+    },
+    {
+      "id_butaca": 48,
+      "id_sala": 1,
+      "fila": "F",
+      "numero": 8,
+      "posicion_x": 7,
+      "posicion_y": 5,
+      "activa": true
+    }
+  ],
+  "dramaturgos": [
+    {
+      "id_dramaturgo": 1,
+      "nombre_completo": "Federico García Lorca"
+    },
+    {
+      "id_dramaturgo": 2,
+      "nombre_completo": "Molière"
+    },
+    {
+      "id_dramaturgo": 3,
+      "nombre_completo": "Pedro Calderón de la Barca"
+    },
+    {
+      "id_dramaturgo": 4,
+      "nombre_completo": "William Shakespeare"
+    }
+  ],
+  "funcionButaca": [
+    {
+      "id_funcion": 1,
+      "id_butaca": 1,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 2,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 3,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 4,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 5,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 6,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 7,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 8,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 9,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 10,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 11,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 12,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 13,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 14,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 15,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 16,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 17,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 18,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 19,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 20,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 21,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 22,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 23,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 24,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 25,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 26,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 27,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 28,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 29,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 30,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 31,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 32,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 33,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 34,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 35,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 36,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 37,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 38,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 39,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 40,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 41,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 42,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 43,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 44,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 45,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 46,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 47,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 1,
+      "id_butaca": 48,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 1,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 2,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 3,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 4,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 5,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 6,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 7,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 8,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 9,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 10,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 11,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 12,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 13,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 14,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 15,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 16,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 17,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 18,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 19,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 20,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 21,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 22,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 23,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 24,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 25,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 26,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 27,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 28,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 29,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 30,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 31,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 32,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 33,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 34,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 35,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 36,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 37,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 38,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 39,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 40,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 41,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 42,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 43,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 44,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 45,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 46,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 47,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 2,
+      "id_butaca": 48,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 1,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 2,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 3,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 4,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 5,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 6,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 7,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 8,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 9,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 10,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 11,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 12,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 13,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 14,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 15,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 16,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 17,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 18,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 19,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 20,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 21,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 22,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 23,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 24,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 25,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 26,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 27,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 28,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 29,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 30,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 31,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 32,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 33,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 34,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 35,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 36,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 37,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 38,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 39,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 40,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 41,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 42,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 43,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 44,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 45,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 46,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 47,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 3,
+      "id_butaca": 48,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 1,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 2,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 3,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 4,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 5,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 6,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 7,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 8,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 9,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 10,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 11,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 12,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 13,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 14,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 15,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 16,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 17,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 18,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 19,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 20,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 21,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 22,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 23,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 24,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 25,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 26,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 27,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 28,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 29,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 30,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 31,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 32,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 33,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 34,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 35,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 36,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 37,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 38,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 39,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 40,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 41,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 42,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 43,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 44,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 45,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 46,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 47,
+      "habilitada": true
+    },
+    {
+      "id_funcion": 4,
+      "id_butaca": 48,
+      "habilitada": true
+    }
+  ],
+  "funciones": [
+    {
+      "id_funcion": 1,
+      "id_produccion": 1,
+      "id_sala": 1,
+      "fecha_hora_inicio": "2026-11-13T19:30:00-04:00",
+      "fecha_hora_fin": "2026-11-13T21:00:00-04:00",
+      "estado": "PROGRAMADA"
+    },
+    {
+      "id_funcion": 2,
+      "id_produccion": 1,
+      "id_sala": 1,
+      "fecha_hora_inicio": "2026-11-14T19:30:00-04:00",
+      "fecha_hora_fin": "2026-11-14T21:00:00-04:00",
+      "estado": "PROGRAMADA"
+    },
+    {
+      "id_funcion": 3,
+      "id_produccion": 2,
+      "id_sala": 1,
+      "fecha_hora_inicio": "2026-11-20T19:00:00-04:00",
+      "fecha_hora_fin": "2026-11-20T20:25:00-04:00",
+      "estado": "PROGRAMADA"
+    },
+    {
+      "id_funcion": 4,
+      "id_produccion": 3,
+      "id_sala": 1,
+      "fecha_hora_inicio": "2026-11-27T19:30:00-04:00",
+      "fecha_hora_fin": "2026-11-27T21:10:00-04:00",
+      "estado": "PROGRAMADA"
+    }
+  ],
+  "imagenes": [
+    {
+      "id_imagen": 1,
+      "id_produccion": 4,
+      "url_original": "assets/images/archivo-bosque.svg",
+      "url_pequena": "assets/images/archivo-bosque-movil.svg",
+      "texto_alternativo": "Ilustración de un bosque nocturno iluminado sobre un escenario",
+      "orden": 1
+    },
+    {
+      "id_imagen": 2,
+      "id_produccion": 4,
+      "url_original": "assets/images/archivo-ensayo.svg",
+      "url_pequena": "assets/images/archivo-ensayo-movil.svg",
+      "texto_alternativo": "Ilustración de una sala de ensayo con sillas bajo focos de luz",
+      "orden": 2
+    },
+    {
+      "id_imagen": 3,
+      "id_produccion": 5,
+      "url_original": "assets/images/archivo-luna.svg",
+      "url_pequena": "assets/images/archivo-luna-movil.svg",
+      "texto_alternativo": "Ilustración de una luna dorada y telas rojas en un escenario",
+      "orden": 1
+    },
+    {
+      "id_imagen": 4,
+      "id_produccion": 5,
+      "url_original": "assets/images/archivo-ensayo.svg",
+      "url_pequena": "assets/images/archivo-ensayo-movil.svg",
+      "texto_alternativo": "Ilustración de una sala de ensayo con sillas bajo focos de luz",
+      "orden": 2
+    }
+  ],
+  "obraDramaturgo": [
+    {
+      "id_obra": 1,
+      "id_dramaturgo": 1
+    },
+    {
+      "id_obra": 2,
+      "id_dramaturgo": 2
+    },
+    {
+      "id_obra": 3,
+      "id_dramaturgo": 3
+    },
+    {
+      "id_obra": 4,
+      "id_dramaturgo": 4
+    },
+    {
+      "id_obra": 5,
+      "id_dramaturgo": 1
+    }
+  ],
+  "obras": [
+    {
+      "id_obra": 1,
+      "titulo": "La casa de Bernarda Alba",
+      "genero": "Drama",
+      "duracion_minutos": 90,
+      "sinopsis": "Tras la muerte de su segundo marido, Bernarda impone un largo luto a sus cinco hijas. Dentro de la casa, el silencio, el deseo de libertad y las normas familiares entran en conflicto.",
+      "imagen": "bernarda.svg",
+      "video_avance_url": "assets/video/avance-demo.mp4"
+    },
+    {
+      "id_obra": 2,
+      "titulo": "El avaro",
+      "genero": "Comedia",
+      "duracion_minutos": 85,
+      "sinopsis": "Harpagón quiere controlar su fortuna y el futuro de sus hijos. Entre secretos, enredos y un dinero que desaparece, su obsesión por ahorrar lo lleva a perder el control de todo.",
+      "imagen": "avaro.svg",
+      "video_avance_url": "assets/video/avance-demo.mp4"
+    },
+    {
+      "id_obra": 3,
+      "titulo": "La vida es sueño",
+      "genero": "Clásico",
+      "duracion_minutos": 100,
+      "sinopsis": "Segismundo ha vivido encerrado sin conocer su origen. Cuando descubre que es príncipe, debe decidir si está condenado por su destino o si puede elegir quién quiere ser.",
+      "imagen": "sueno.svg",
+      "video_avance_url": "assets/video/avance-demo.mp4"
+    },
+    {
+      "id_obra": 4,
+      "titulo": "Sueño de una noche de verano",
+      "genero": "Comedia",
+      "duracion_minutos": 95,
+      "sinopsis": "Un bosque reúne a amantes, artesanos y seres mágicos en una noche de equívocos.",
+      "imagen": "archivo-bosque.svg",
+      "video_avance_url": null
+    },
+    {
+      "id_obra": 5,
+      "titulo": "Bodas de sangre",
+      "genero": "Drama",
+      "duracion_minutos": 90,
+      "sinopsis": "Un encuentro reabre una pasión que enfrenta los deseos personales y los compromisos familiares.",
+      "imagen": "archivo-luna.svg",
+      "video_avance_url": null
+    }
+  ],
+  "producciones": [
+    {
+      "id_produccion": 1,
+      "id_obra": 1,
+      "nombre_montaje": "La casa de Bernarda Alba",
+      "temporada": "2026",
+      "estado": "CARTELERA"
+    },
+    {
+      "id_produccion": 2,
+      "id_obra": 2,
+      "nombre_montaje": "El avaro",
+      "temporada": "2026",
+      "estado": "CARTELERA"
+    },
+    {
+      "id_produccion": 3,
+      "id_obra": 3,
+      "nombre_montaje": "La vida es sueño",
+      "temporada": "2026",
+      "estado": "CARTELERA"
+    },
+    {
+      "id_produccion": 4,
+      "id_obra": 4,
+      "nombre_montaje": "Sueño de una noche de verano",
+      "temporada": "2025",
+      "estado": "ARCHIVO"
+    },
+    {
+      "id_produccion": 5,
+      "id_obra": 5,
+      "nombre_montaje": "Bodas de sangre",
+      "temporada": "2025",
+      "estado": "ARCHIVO"
+    }
+  ],
+  "resenas": [
+    {
+      "id_resena": 1,
+      "id_produccion": 4,
+      "nombre_autor": "Espectador de ejemplo",
+      "contenido": "Por un momento, el escenario se convirtió en un lugar donde todo era posible."
+    },
+    {
+      "id_resena": 2,
+      "id_produccion": 5,
+      "nombre_autor": "Espectadora de ejemplo",
+      "contenido": "Hay silencios que dicen tanto como una escena entera."
+    }
+  ],
+  "reservaButacaEjemplo": [
+    {
+      "id_reserva": "ejemplo-1",
+      "id_funcion": 1,
+      "id_butaca": 2,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-1",
+      "id_funcion": 1,
+      "id_butaca": 9,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-1",
+      "id_funcion": 1,
+      "id_butaca": 18,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-1",
+      "id_funcion": 1,
+      "id_butaca": 19,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-1",
+      "id_funcion": 1,
+      "id_butaca": 28,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-1",
+      "id_funcion": 1,
+      "id_butaca": 35,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-2",
+      "id_funcion": 2,
+      "id_butaca": 3,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-2",
+      "id_funcion": 2,
+      "id_butaca": 10,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-2",
+      "id_funcion": 2,
+      "id_butaca": 19,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-2",
+      "id_funcion": 2,
+      "id_butaca": 20,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-2",
+      "id_funcion": 2,
+      "id_butaca": 29,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-2",
+      "id_funcion": 2,
+      "id_butaca": 36,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-3",
+      "id_funcion": 3,
+      "id_butaca": 4,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-3",
+      "id_funcion": 3,
+      "id_butaca": 11,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-3",
+      "id_funcion": 3,
+      "id_butaca": 20,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-3",
+      "id_funcion": 3,
+      "id_butaca": 21,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-3",
+      "id_funcion": 3,
+      "id_butaca": 30,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-3",
+      "id_funcion": 3,
+      "id_butaca": 37,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-4",
+      "id_funcion": 4,
+      "id_butaca": 5,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-4",
+      "id_funcion": 4,
+      "id_butaca": 12,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-4",
+      "id_funcion": 4,
+      "id_butaca": 21,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-4",
+      "id_funcion": 4,
+      "id_butaca": 22,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-4",
+      "id_funcion": 4,
+      "id_butaca": 31,
+      "vigente": true
+    },
+    {
+      "id_reserva": "ejemplo-4",
+      "id_funcion": 4,
+      "id_butaca": 38,
+      "vigente": true
+    }
+  ],
+  "reservasEjemplo": [
+    {
+      "id_reserva": "ejemplo-1",
+      "id_funcion": 1,
+      "estado": "CONFIRMADA"
+    },
+    {
+      "id_reserva": "ejemplo-2",
+      "id_funcion": 2,
+      "estado": "CONFIRMADA"
+    },
+    {
+      "id_reserva": "ejemplo-3",
+      "id_funcion": 3,
+      "estado": "CONFIRMADA"
+    },
+    {
+      "id_reserva": "ejemplo-4",
+      "id_funcion": 4,
+      "estado": "CONFIRMADA"
+    }
+  ],
+  "salas": [
+    {
+      "id_sala": 1,
+      "nombre": "Sala principal · ejemplo",
+      "descripcion": "Seis filas y ocho butacas por fila",
+      "activa": true
+    }
+  ],
+  "talleres": [
+    {
+      "id_taller": 1,
+      "titulo": "Primeros pasos en actuación",
+      "descripcion": "Exploraremos el cuerpo, la voz y la creación de personajes con ejercicios en grupo. No necesitas experiencia previa.",
+      "convocatoria_texto": "Un espacio para perder el miedo a estar en escena y empezar a actuar.",
+      "fecha_inicio": "2026-11-09",
+      "fecha_fin": "2026-11-30",
+      "fecha_limite_inscripcion": "2026-11-08",
+      "cupo_maximo": 20,
+      "estado": "ABIERTO",
+      "horario": "Lunes · 17:00 a 18:30"
+    },
+    {
+      "id_taller": 2,
+      "titulo": "Improvisación y juego escénico",
+      "descripcion": "Trabajaremos la escucha, la imaginación y la respuesta espontánea. Cada encuentro parte de juegos y pequeñas escenas compartidas.",
+      "convocatoria_texto": "Aprende a crear una historia sin tener un guion entre las manos.",
+      "fecha_inicio": "2026-11-11",
+      "fecha_fin": "2026-12-02",
+      "fecha_limite_inscripcion": "2026-11-10",
+      "cupo_maximo": 16,
+      "estado": "ABIERTO",
+      "horario": "Miércoles · 17:00 a 18:30"
+    }
+  ]
+}
