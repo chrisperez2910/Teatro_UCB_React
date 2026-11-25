@@ -1,0 +1,17 @@
+:root {
+  --color-bg: #121212;
+  --color-surface: #1b1a19;
+  --color-surface-soft: #23211f;
+  --color-wine: #800020;
+  --color-wine-dark: #3b0713;
+  --color-gold: #d4af37;
+  --color-gold-light: #e9cb71;
+  --color-text: #f2eee5;
+  --color-muted: #b7b0a5;
+  --color-border: #413b33;
+  --color-error: #ffb9af;
+  --font-body: "Segoe UI", Arial, sans-serif;
+  --font-display: Georgia, "Times New Roman", serif;
+  --spacing-unit: 1rem;
+  --content-width: 1220px;
+}
