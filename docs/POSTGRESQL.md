@@ -1,12 +1,13 @@
-# PostgreSQL y cuentas
+# Instalar y actualizar Teatro UCB
 
-## Si ya tenías el avance anterior
+## Preparar el proyecto
 
-Conserva la base `teatro_ucb`. El instalador agrega las tablas `usuario` y `sesion_usuario` y el vínculo `id_usuario` a reservas e inscripciones. Los registros anteriores permanecen en su tabla con `id_usuario` vacío; sus butacas activas siguen ocupadas. No los transferimos automáticamente a una cuenta porque todavía no hay una forma segura de verificar quién es su dueño.
+1. Detén la versión anterior con Ctrl + C.
+2. Extrae el ZIP y abre la carpeta que contiene `package.json` en VS Code.
+3. Mantén PostgreSQL iniciado. Puedes seguir usando la base `teatro_ucb`.
+4. Antes de actualizar, haz una copia desde pgAdmin: clic derecho en la base → Backup.
 
-1. Detén los servidores anteriores con `Ctrl + C` en sus terminales.
-2. Extrae el nuevo ZIP en una carpeta diferente y ábrela en VS Code.
-3. En PowerShell, dentro de esa carpeta, ejecuta:
+En PowerShell:
 
 ```powershell
 npm.cmd ci
@@ -15,55 +16,93 @@ npm.cmd run db:setup
 npm.cmd run dev:full
 ```
 
-Reemplaza `TU_CLAVE` por tu contraseña de PostgreSQL. No incluyas la contraseña en capturas ni la subas a Git. Si contiene caracteres especiales de URL como `@`, `/` o `:`, deben codificarse en la dirección.
+Abre http://localhost:5173. No uses Live Server. La variable `DATABASE_URL` pertenece a esa terminal: vuelve a definirla si abres otra.
 
-Abre el enlace de Vite, normalmente `http://localhost:5173/`. `dev:full` arranca React en modo BD y la API en el puerto 3001. Si aparece que el puerto 5173 está ocupado, detén el servidor anterior y vuelve a intentarlo. Para detener ambos procesos, usa `Ctrl + C`.
-
-Si usas un servidor o puerto distinto para PostgreSQL, cambia esa parte de la URL. Si aún no existe la base, créala vacía en pgAdmin antes de ejecutar `db:setup`.
-
-## Alternativa: dos terminales
-
-Si el comando conjunto falla, abre dos terminales PowerShell en la carpeta del proyecto.
-
-Terminal 1:
+Si la contraseña tiene caracteres especiales como `@` o `/`, deben codificarse para una URL. También puedes construir la conexión sin escribir la contraseña visible:
 
 ```powershell
-$env:DATABASE_URL = 'postgresql://postgres:TU_CLAVE@localhost:5432/teatro_ucb'
-npm.cmd run api
+$clavePg = Read-Host 'Contraseña de PostgreSQL' -AsSecureString
+$clavePlana = [System.Net.NetworkCredential]::new('', $clavePg).Password
+$env:DATABASE_URL = 'postgresql://postgres:' + [uri]::EscapeDataString($clavePlana) + '@localhost:5432/teatro_ucb'
+Remove-Variable clavePg, clavePlana
 ```
 
-Terminal 2:
+## Qué actualiza la base
+
+- Agrega el rol de usuario, las sesiones y los historiales administrativos si faltan.
+- Conserva cuentas, reservas e inscripciones.
+- Cambia las rutas de portadas y galerías en una migración que se ejecuta una sola vez.
+- Desactiva los lugares precargados en `ocupacion_ejemplo`. Las filas de `reserva` y `reserva_butaca` de los usuarios permanecen intactas.
+- Excluye de la cartelera las antiguas reseñas cuyo autor decía «de ejemplo».
+- Agrega índices para los reportes. El informe se calcula mediante consultas; no crea copias de las reservas.
+
+Los registros antiguos sin cuenta conservan `id_usuario` vacío. No se asignan automáticamente a otra persona.
+
+## Administrador
+
+Registra tu cuenta en la página. Luego, en otra terminal con la misma conexión:
 
 ```powershell
-$env:VITE_USE_API = 'true'
-npm.cmd run dev
+npm.cmd run admin:grant -- tu-correo@example.com
 ```
 
-Ambas terminales deben permanecer abiertas. Cada variable `$env:` pertenece solo a la terminal donde la escribes.
+Recarga la página y abre **Administrar**.
 
-## Comprobarlo
+En **Gestionar butacas**, selecciona una función y pulsa una butaca libre para bloquearla. Pulsa una bloqueada para habilitarla. Las reservadas no se pueden modificar desde este control.
 
-1. Abre **Mi cuenta → Crear cuenta**, usa un nombre, un correo de prueba y una contraseña de al menos 8 caracteres.
-2. Elige una función y una butaca, y guarda la reserva.
-3. En pgAdmin, abre el Query Tool de `teatro_ucb`:
+En **Programar esta función**, escribe la fecha y hora de La Paz. El servidor impide fechas pasadas, solapamientos con otra función de la sala y cambios sobre funciones con reservas confirmadas. Las fechas que ya existían se conservan: programa las próximas funciones desde este módulo.
+
+## Reportes
+
+Abre **Administrar → Reportes y decisiones**. Elige el intervalo de fechas de las funciones y, si quieres, una obra. Pulsa **Aplicar filtros**.
+
+El informe incluye ocupación, lugares libres y bloqueados, solicitudes confirmadas y canceladas, demanda por obra, evolución de solicitudes y las últimas 100 reservas. Las tablas no exponen nombres ni correos del público.
+
+- **Ocupación:** butacas con reserva activa / aforo habilitado de las funciones no canceladas. Se calcula con los totales; no promedia porcentajes.
+- **Reservas:** solicitudes. Una solicitud puede contener varias butacas.
+- **Cancelaciones:** solicitudes canceladas / solicitudes totales de las funciones elegidas, usando el estado actual.
+- **Actividad diaria:** últimas 30 fechas con solicitudes de esas funciones, agrupadas por creación de la reserva en horario de La Paz.
+- **Alertas:** ocupación desde 80 %, ocupación menor a 30 % con función dentro de siete días, cancelaciones desde 20 % cuando hay al menos cinco solicitudes y butacas bloqueadas. Son criterios de revisión, no predicciones.
+
+**Exportar CSV** descarga todas las funciones filtradas. **Imprimir / PDF** abre la impresión del navegador: elige «Guardar como PDF». La versión impresa oculta los controles y conserva las cifras, tablas y criterios del informe.
+
+## Comprobar el recorrido
+
+1. Crea una cuenta de usuario en una ventana de incógnito.
+2. Desde tu cuenta administradora programa una función futura sin reservas y habilita sus butacas.
+3. Recarga la cartelera del usuario, elige esa función y guarda una reserva de dos butacas.
+4. Comprueba la reserva en **Mis reservas** y la ocupación en administración.
+5. Actualiza el reporte: debe sumar una solicitud y dos butacas, no dos solicitudes.
+6. Cancela desde la cuenta de usuario antes de que comience la función.
+7. Actualiza el reporte: aumentará la cancelación y se liberarán los lugares.
+8. Prueba los filtros y descarga el CSV o PDF.
+
+Para ver los registros en pgAdmin:
 
 ```sql
-SELECT id_usuario, nombre, correo FROM usuario;
-SELECT codigo_reserva, id_usuario, estado FROM reserva ORDER BY creada_en DESC;
-SELECT id_funcion, id_butaca, activa FROM reserva_butaca;
-SELECT id_taller, id_usuario, nombre_participante, estado FROM inscripcion_taller;
+SELECT nombre, correo, rol FROM usuario;
+SELECT codigo_reserva, id_funcion, estado FROM reserva ORDER BY creada_en DESC;
+SELECT id_reserva, id_funcion, id_butaca, activa FROM reserva_butaca;
+SELECT * FROM cambio_butaca ORDER BY cambiado_en DESC;
+SELECT * FROM cambio_funcion ORDER BY cambiado_en DESC;
 ```
 
-4. Cierra sesión e ingresa con la misma cuenta. Tu reserva debe aparecer en **Mis reservas**. Al cancelarla cambia su estado y la butaca vuelve a estar disponible.
+## Problemas frecuentes
 
-Las contraseñas no se guardan en texto plano. No existe recuperación de contraseña ni verificación de correo en este avance; usa contraseñas de prueba que no utilices en otras cuentas.
+- **ECONNREFUSED:** PostgreSQL está detenido o el puerto es distinto.
+- **password authentication failed:** revisa la contraseña y su codificación en la URL.
+- **No existe la columna rol:** ejecuta `db:setup` con esta versión.
+- **Puerto 5173/3001 ocupado:** cierra los servidores anteriores; no abras dos versiones al mismo tiempo.
+- **No aparecen funciones para reservar:** sus fechas ya pasaron. Programa una próxima función desde administración.
+- **Inscripción cerrada:** se comprueba la fecha límite de cada taller. Ajusta la convocatoria en la base si corresponde.
+- **GitHub Pages muestra la cartelera pero no permite ingresar:** falta publicar la API y PostgreSQL; consulta `PUBLICAR.md`.
 
-## Si aparece un error
+Puedes iniciar por separado con `npm.cmd run api` en una terminal con `DATABASE_URL` y `npm.cmd run dev` en otra con `$env:VITE_USE_API = 'true'`.
 
-- `ECONNREFUSED` al ejecutar `db:setup`: revisa que el servicio de PostgreSQL esté iniciado y el puerto sea el correcto.
-- `password authentication failed`: revisa el usuario y contraseña de PostgreSQL.
-- Pantalla con error de conexión: comprueba que la API siga activa y que ejecutaste `db:setup` con esta versión.
-- Puerto 5173 o 3001 ocupado: detén los procesos anteriores en sus terminales.
-- Si el modo cuenta aparece deshabilitado, arranca con `dev:full` o define `VITE_USE_API` como se indica arriba antes de ejecutar Vite.
+Para comprobar la conexión:
 
-La API está configurada para usarse localmente con el origen `http://localhost:5173`. La versión publicada como sitio estático antes de este avance no incluye el servidor ni la base de datos. Para abrirla al público haría falta un despliegue del frontend, la API y PostgreSQL, con HTTPS y configuración de cookies seguras.
+```powershell
+Invoke-RestMethod http://localhost:3001/api/health
+```
+
+Debe devolver `ok: True` y `database: connected`.

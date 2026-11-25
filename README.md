@@ -1,14 +1,12 @@
 # Teatro UCB
 
-Portal de teatro universitario desarrollado con React, Vite, Node.js y PostgreSQL. Esta versión permite crear una cuenta, iniciar sesión y guardar reservas e inscripciones asociadas a ella.
+Portal de teatro con cartelera, fichas de obras, reservas de butacas y talleres. Los usuarios pueden crear su cuenta y consultar sus reservas. La administración permite gestionar la sala, programar funciones y revisar los reportes.
 
-Las obras son textos teatrales reales. Los afiches y la imagen principal son ilustrativos; las fechas, duraciones, reseñas y funciones siguen siendo datos de ejemplo. Los videos enlazados pertenecen a otras compañías y se presentan como referencias, no como montajes de la UCB.
+## Ejecutar en Windows
 
-## Abrir el proyecto con la base de datos
+Abre la carpeta del proyecto en VS Code. Necesitas Node.js 22.12 o posterior de la rama 22, o Node.js 24 o superior, y PostgreSQL.
 
-Necesitas Node.js 22.12 o superior de la rama 22, o Node.js 24 o superior, además de PostgreSQL. Si ya tenías el avance anterior, utiliza la misma base `teatro_ucb`; no hace falta borrarla.
-
-En PowerShell, dentro de la carpeta del proyecto:
+En PowerShell:
 
 ```powershell
 npm.cmd ci
@@ -17,47 +15,55 @@ npm.cmd run db:setup
 npm.cmd run dev:full
 ```
 
-Cambia `TU_CLAVE` por tu contraseña de PostgreSQL y abre el enlace que aparezca en la terminal, normalmente `http://localhost:5173/`. Mantén la terminal abierta. El primer comando necesita internet para instalar las dependencias. El segundo asigna la conexión solo a esta terminal; vuelve a introducirlo cuando abras una nueva.
+Cambia `TU_CLAVE` por la contraseña de PostgreSQL y abre http://localhost:5173. La guía completa está en [docs/POSTGRESQL.md](docs/POSTGRESQL.md).
 
-`db:setup` crea las tablas que faltan, incorpora los campos de cuenta a las tablas anteriores y carga la cartelera de ejemplo. No borra reservas previas. Las antiguas reservas sin cuenta se conservan en la BD y mantienen su ocupación, pero no se asignan automáticamente a ningún usuario ni aparecen en el historial de una cuenta nueva.
+Si ya tienes la base `teatro_ucb`, consérvala. `db:setup` aplica las migraciones y actualiza las imágenes una sola vez; conserva las cuentas y las reservas. Guarda una copia de la base antes de actualizar.
 
-Si el puerto 5173 está ocupado, cierra los servidores anteriores antes de iniciar. Si `dev:full` no funciona en tu computadora, la [guía de PostgreSQL](docs/POSTGRESQL.md) explica cómo arrancar la API y React por separado.
+## Administración
 
-## Qué se puede hacer
+Crea una cuenta desde la página. En otra terminal, con `DATABASE_URL` configurada:
 
-- Registrar una cuenta e ingresar o cerrar sesión.
-- Recorrer la cartelera destacada y filtrar obras por nombre, autor o género.
-- Consultar una ficha y acceder a videos de referencia de otras producciones.
-- Seleccionar hasta seis butacas y guardar una reserva de prueba en la cuenta.
-- Consultar, descargar o cancelar una reserva; la cancelación libera las butacas.
-- Inscribirse en talleres de ejemplo y consultar sus cupos.
+```powershell
+npm.cmd run admin:grant -- tu-correo@example.com
+```
 
-El servidor verifica que el usuario haya iniciado sesión para reservar y controla las butacas y cupos con transacciones. Las contraseñas se guardan con `scrypt` y sal; las sesiones se gestionan mediante cookies `HttpOnly`. El acceso es una base académica: todavía faltan recuperación de contraseña, verificación de correo y administración de usuarios.
+Recarga la página. En **Administrar** encontrarás:
 
-## Carpetas principales
+- **Gestionar butacas:** bloquear o habilitar lugares por función.
+- **Programar esta función:** cambiar el horario cuando no haya reservas confirmadas. Se comprueban los solapamientos de la sala.
+- **Reportes y decisiones:** ocupación, reservas, cancelaciones, demanda por obra y actividad diaria, con filtros por fecha y obra. Permite descargar CSV e imprimir o guardar PDF.
 
-| Ruta                             | Contenido                                                  |
-| -------------------------------- | ---------------------------------------------------------- |
-| `src/components/` y `src/pages/` | Interfaz, carrusel, formularios y páginas                  |
-| `src/TheaterContext.jsx`         | Estado compartido de la sesión y las reservas              |
-| `src/services/`                  | Llamadas a la API, validaciones y referencias de las obras |
-| `src/styles/`                    | Colores, distribución y diseño responsive                  |
-| `server/index.js`                | API, cuentas, sesiones, reservas y talleres                |
-| `server/security.js`             | Hash y comprobación de contraseñas                         |
-| `server/db/schema.sql`           | Tablas, relaciones y migración de la versión anterior      |
-| `server/db/setup.js`             | Creación de tablas y carga de datos iniciales              |
-| `public/assets/`                 | Imágenes y afiches ilustrativos                            |
-| `public/data/teatro.json`        | Datos de ejemplo utilizados para la carga inicial          |
-| `tests/`                         | Pruebas del frontend y de la API                           |
-| `docs/`                          | Guías de instalación, React, imágenes y fuentes            |
+## Organización
 
-## Pruebas y modo visual
+| Carpeta          | Contenido                                                         |
+| ---------------- | ----------------------------------------------------------------- |
+| `src/components` | Formularios, cartelera, carrusel, mapa de butacas y navegación    |
+| `src/pages`      | Inicio, cuentas, obras, reservas, administración y reportes       |
+| `src/services`   | Peticiones, validaciones, CSV y reglas de lectura del informe     |
+| `src/styles`     | Diseño responsive, fondos teatrales y versión impresa del reporte |
+| `server`         | API, sesiones, permisos y consultas de reportes                   |
+| `server/db`      | Esquema PostgreSQL, carga inicial y migraciones                   |
+| `public/assets`  | Imágenes, audio y video                                           |
+| `tests`          | Pruebas de interfaz, reglas de reserva y API                      |
+
+Las contraseñas se guardan con scrypt y sal aleatoria. Las sesiones usan cookies HttpOnly; los permisos se validan en el servidor. Las reservas se confirman en transacciones y una restricción de la BD impide ocupar dos veces la misma butaca de una función.
+
+## Comprobaciones
 
 ```powershell
 npm.cmd test
 npm.cmd run build
 ```
 
-Para revisar solamente la interfaz sin PostgreSQL, ejecuta `npm.cmd run dev` con `VITE_USE_API` sin activar. En ese modo se usa el archivo JSON y localStorage; las cuentas requieren la API y la BD.
+Las pruebas de integración usan PostgreSQL embebido mediante PGlite, sin modificar tu base personal.
 
-Esta versión está pensada para desarrollo local. Las funciones y reservas no son reales, no se procesan pagos ni se envían correos. Antes de una publicación abierta deben configurarse HTTPS y cookies seguras, recuperación y verificación de cuentas, permisos administrativos, límites de solicitudes compartidos y políticas de datos.
+## Publicación
+
+- Repositorio: https://github.com/chrisperez2910/Teatro_UCB_React
+- Interfaz en GitHub Pages: https://chrisperez2910.github.io/Teatro_UCB_React/
+
+GitHub Pages aloja la interfaz estática. Las cuentas, reservas compartidas y reportes requieren Node.js y PostgreSQL. En la publicación estática sin API, las operaciones de reserva están deshabilitadas para no mostrar confirmaciones que no se guardan en el servidor.
+
+Para publicar el sistema completo con la interfaz y API en el mismo dominio, consulta [docs/PUBLICAR.md](docs/PUBLICAR.md).
+
+Los reportes miden reservas; no registran pagos ni asistencia. La recuperación de contraseña y la verificación de correo no forman parte de esta versión.

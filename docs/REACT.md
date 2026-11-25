@@ -1,65 +1,50 @@
-# Cómo está organizado el proyecto en React
+# Organización en React
 
-La idea fue conservar lo que ya funcionaba en el avance y cambiar la forma de organizar la interfaz. React se encarga de mostrar los componentes a partir del estado; ya no se crean tarjetas ni formularios concatenando HTML.
+La interfaz está separada en páginas y componentes. El catálogo, la cuenta y las reservas se comparten desde `TheaterContext`. Cada pantalla conserva sus propios filtros y formularios.
 
-## Conceptos usados
+## Piezas principales
 
-| Concepto                | Dónde verlo                       | Para qué se usa                                       |
-| ----------------------- | --------------------------------- | ----------------------------------------------------- |
-| Componentes y JSX       | `src/components/` y `src/pages/`  | Separar las secciones y las páginas                   |
-| Props                   | `BookingSection` y `ContactForm`  | Recibir datos y acciones desde el componente padre    |
-| `children`              | `Dialog` y `TheaterProvider`      | Reutilizar una estructura con contenido diferente     |
-| `useState`              | Cartelera, talleres y formularios | Guardar filtros, campos y ventanas abiertas           |
-| `useReducer`            | `useSeatSelection` y `useCatalog` | Manejar acciones de selección y estados de carga      |
-| `useEffect`             | Catálogo, navegación y guardado   | Sincronizar con fetch, el navegador y localStorage    |
-| `useRef`                | Formulario y diálogo              | Controlar el foco y evitar envíos repetidos           |
-| `useContext`            | `TheaterContext.jsx`              | Compartir reservas e inscripciones entre páginas      |
-| Hooks propios           | `src/hooks/`                      | Reutilizar comportamiento sin mezclarlo con el diseño |
-| Formularios controlados | `ContactForm.jsx`                 | Mantener los valores y los errores en el estado       |
-| React Router            | `main.jsx` y `App.jsx`            | Navegar sin recargar toda la aplicación               |
-| `lazy` y `Suspense`     | `App.jsx`                         | Cargar la ficha y el historial cuando se necesitan    |
+| Archivo                             | Responsabilidad                                  |
+| ----------------------------------- | ------------------------------------------------ |
+| `src/main.jsx`                      | Iniciar React y el router                        |
+| `src/App.jsx`                       | Definir las rutas y cargar páginas bajo demanda  |
+| `src/TheaterContext.jsx`            | Compartir cuenta, catálogo y acciones de reserva |
+| `src/components/CatalogSection.jsx` | Buscar obras y filtrar por género                |
+| `src/components/BookingSection.jsx` | Elegir función y butacas                         |
+| `src/pages/AccountPage.jsx`         | Registro, ingreso y cierre de sesión             |
+| `src/pages/AdminPage.jsx`           | Habilitar butacas y programar horarios           |
+| `src/pages/ReportsPage.jsx`         | Consultar y exportar el informe                  |
+| `src/services/reporting.js`         | Formatear cifras, generar CSV y evaluar alertas  |
+| `src/hooks/`                        | Reutilizar selección, carga y navegación         |
 
-Se mantuvo JavaScript con JSX para continuar con el lenguaje del primer avance. El material de clase también muestra TypeScript y otras herramientas; no es necesario incorporarlas todas para esta etapa. Context resuelve el estado compartido actual sin agregar otra biblioteca de estado.
+## Estado y eventos
+
+`useState` controla los campos, filtros y ventanas. `useReducer` organiza la selección de butacas sin modificar el estado anterior. `useContext` permite que la cuenta y las reservas estén disponibles en distintas páginas. Los efectos de carga cancelan las peticiones que ya no se necesitan con `AbortController`.
+
+Los formularios usan valores controlados, validación y `preventDefault()`. `useRef` se utiliza para el foco y para evitar envíos repetidos. `lazy` y `Suspense` cargan las páginas secundarias cuando se abren. `HashRouter` permite navegar también desde GitHub Pages.
 
 ## Recorrido de una reserva
 
-1. `HomePage` obtiene la función desde la URL y la entrega a `BookingSection`.
-2. `useSeatSelection` agrega o quita butacas mediante un reducer. El reducer no guarda datos, no genera códigos ni modifica el estado anterior.
-3. `ContactForm` controla nombre y correo, intercepta el envío y muestra errores junto a los campos.
-4. El formulario llama a la acción `reserve` del contexto.
-5. En modo conectado, el contexto envía la reserva a la API. El servidor comprueba la sesión y la disponibilidad, y guarda la reserva y sus butacas en una transacción.
-6. La respuesta actualiza el contexto y el router abre el historial de la cuenta. En modo visual local, `buildReservation` y `usePersistentState` guardan la reserva en el navegador.
+1. El visitante elige una obra, una función futura y sus butacas.
+2. Si aún no ingresó, se solicita su cuenta y se conserva la selección durante la navegación.
+3. El formulario envía los datos a la API.
+4. Node comprueba la sesión, la fecha y la disponibilidad en PostgreSQL.
+5. Una transacción guarda la reserva y sus butacas. La restricción única impide que dos usuarios reserven el mismo lugar.
+6. La respuesta actualiza la cuenta y abre **Mis reservas**.
 
-Cancelar cambia el estado de la reserva a `CANCELADA`. El registro queda en el historial, pero sus butacas dejan de contarse como ocupadas.
+La cancelación conserva el historial y libera las butacas antes del inicio de la función. El catálogo consulta la disponibilidad periódicamente y cuando vuelve a tener el foco; el servidor siempre vuelve a comprobarla al confirmar.
 
-## Carga de datos y efectos
+## Administración e informes
 
-`useCatalog` consulta `public/data/teatro.json` o la API PostgreSQL, según la configuración, con fetch y muestra estados de carga, éxito y error. Comprueba `response.ok`, permite reintentar y usa `AbortController` para cancelar cuando se desmonta el componente o cuando la petición tarda demasiado. El JSON corresponde al modo local. El modo PostgreSQL utiliza `/api/catalog` y guarda las operaciones por API.
+Las páginas de administración verifican el rol de la cuenta y la API vuelve a comprobarlo en cada petición. Ocultar un botón por sí solo no concede ni protege permisos.
 
-Los efectos que agregan eventos también los eliminan al desmontarse. `StrictMode` ayuda a detectar problemas de montaje y limpieza durante el desarrollo. El guardado local valida lo que recupera y escucha cambios de otras pestañas, aunque esto no reemplaza las garantías de una base de datos.
+Los reportes se calculan en PostgreSQL a partir de las reservas existentes. El frontend muestra indicadores, tablas y alertas, pero no modifica las cifras recibidas para aparentar actividad. Los filtros se aplican por fecha de función y obra.
 
-## Relación con la BD propuesta
+El catálogo estático de Pages permite consultar las obras. Para registrar cuentas, reservar o administrar se ejecuta la versión conectada, descrita en `POSTGRESQL.md`.
 
-El catálogo mantiene separados obra, dramaturgo, producción, función, sala, butaca, imágenes, reseñas y talleres. Las relaciones utilizan los identificadores del esquema presentado.
-
-Para el modo local, una reserva guarda sus butacas en un arreglo. En PostgreSQL, el servidor crea filas de `reserva_butaca`, vinculadas a `RESERVA` y a la combinación función–butaca. La API comprueba sala, disponibilidad, estado y cupos dentro de transacciones. La prevención de duplicados queda en el servidor y las restricciones de la BD.
-
-El servidor todavía deberá aplicar el cierre de inscripciones por fecha, definir la política de vencimiento de reservas y controlar quién puede administrar la programación. Esas funciones quedan para la siguiente etapa; no se simulan como si ya estuvieran implementadas.
-
-## Para presentar el avance
-
-Puedes empezar por la cartelera, buscar “garcia” sin tilde, abrir una ficha y elegir una función. Luego selecciona butacas, guarda la reserva, entra al historial y cancélala. Termina con la galería y la inscripción a un taller.
-
-Si te preguntan por el código, muestra `main.jsx`, una tarjeta de `CatalogSection`, `ContactForm`, el reducer de selección y el contexto. Con eso puedes explicar el flujo completo desde una acción del usuario hasta el cambio de pantalla.
-
-## Material consultado
+## Referencias
 
 - Material de clase: https://github.com/WebDesignOneU/web14
-- Presentación compartida: `React_Architecture_Blueprint.pdf`.
 - React: https://react.dev/learn
-- Reducers: https://react.dev/reference/react/useReducer
-- Efectos: https://react.dev/reference/react/useEffect
-- HashRouter: https://reactrouter.com/api/declarative-routers/HashRouter
-- Compilación y publicación: https://vite.dev/guide/static-deploy.html
-
-El enlace de Moodle requiere acceso institucional y no pudo revisarse. La adaptación toma como referencia el repositorio y la presentación compartida.
+- React Router: https://reactrouter.com/
+- Vite: https://vite.dev/
